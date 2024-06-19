@@ -19,4 +19,4 @@ melihat datanya sendiri gunakan select data login when username
 
 10.buat data diabetes supaya bisa di expand
 
-11. 
+11. buat hasil prediksinya berupa persen, misalkan : yang direkam memiliki kemungkinan 60% pengidap diabetes

@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 function RegisterPage() {
-  const [values, setValues] = useState({ username: '', password: '', email: '' });
+  const [values, setValues] = useState({ username: '', password: '', email: '', retype_password: '' });
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   const handleInput = (event) => {
-    setValues((prev) => ({ ...prev, [event.target.name]: event.target.value }));
+    setValues((prev) => ({ ...prev, [event.target.name]: prev[event.target.name] = event.target.value }));
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const { username, email, password } = values;
+    const { username, email, password, retype_password } = values;
     let errors = {};
 
     // Validate form fields
@@ -25,16 +25,19 @@ function RegisterPage() {
     if (password.trim() === '') {
       errors.password = 'Password is required';
     }
+    if (retype_password.trim() === '' || retype_password !== password) {
+      errors.retype_password = 'Passwords do not match';
+    }
 
     // If there are no errors, proceed with registration logic
     if (Object.keys(errors).length === 0) {
       try {
-        const response = await fetch('http://localhost:3000/register', {
+        const response = await fetch('http://localhost:3000/user/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ username, email, password }),
+          body: JSON.stringify({ username, email, password, retype_password }),
         });
 
         const data = await response.json();
@@ -44,11 +47,11 @@ function RegisterPage() {
           navigate('/login');
         } else {
           // Registration failed, display error message
-          setErrors({ username: data.message || 'Registration failed' });
+          setErrors({ general: data.message || 'Registration failed' });
         }
       } catch (error) {
         console.error('Error:', error);
-        setErrors({ username: 'An error occurred. Please try again.' });
+        setErrors({ general: 'An error occurred. Please try again.' });
       }
     } else {
       setErrors(errors);
@@ -63,6 +66,7 @@ function RegisterPage() {
       <div className="w-full max-w-md">
         <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
           <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6">Register</h1>
+          {errors.general && <p className="text-red-500 mb-4">{errors.general}</p>}
           {errors.username && <p className="text-red-500 mb-4">{errors.username}</p>}
           <div className="mb-4">
             <label htmlFor="username" className="block text-gray-700 font-bold mb-2">
@@ -105,6 +109,21 @@ function RegisterPage() {
               value={values.password}
               onChange={handleInput}
               placeholder="Enter your password"
+              className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-indigo-500"
+            />
+          </div>
+          {errors.retype_password && <p className="text-red-500 mb-4">{errors.retype_password}</p>}
+          <div className="mb-6">
+            <label htmlFor="retype_password" className="block text-gray-700 font-bold mb-2">
+              Retype Password
+            </label>
+            <input
+              id="retype_password"
+              type="password"
+              name="retype_password"
+              value={values.retype_password}
+              onChange={handleInput}
+              placeholder="Retype your password"
               className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-indigo-500"
             />
           </div>

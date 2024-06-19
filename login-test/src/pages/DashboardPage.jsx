@@ -1,12 +1,35 @@
-// src/components/DashboardPage.jsx
+
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
 
 const DashboardPage = () => {
   const navigate = useNavigate();
+
+
+
+  const handleLogout = async () => {
+    try {
+      // Kirim permintaan logout ke backend
+      const token = localStorage.getItem('token');
+      await axios.post('http://localhost:3000/user/logout', {}, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      // Hapus token dari localStorage atau sessionStorage
+      localStorage.removeItem('token');
+
+      // Redirect ke halaman login
+      navigate('/');
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  };
   
-  const handleLogout = () => {
+  const handleLogout2 = () => {
     // Hapus token dari localStorage atau sessionStorage
     localStorage.removeItem('token');
     // Redirect ke halaman login
