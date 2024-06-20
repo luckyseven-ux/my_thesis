@@ -19,7 +19,11 @@ const port = process.env.PORT || 3000;
 app.use(cookieParser())
 app.use(bodyParser.json());
 app.use(cors({ origin: 'http://localhost:5173' }));
-app.use(helmet())
+app.use(helmet({
+  referrerPolicy: {
+    policy: 'strict-origin-when-cross-origin'
+  }
+}));
 
 app.use((req, res, next) => {
   res.setHeader(

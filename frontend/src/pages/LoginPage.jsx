@@ -17,6 +17,7 @@ function LoginPage() {
     const { username, password } = values;
     let errors = {};
 
+    // Validasi form fields
     if (username.trim() === '') {
       errors.username = 'Username is required';
     }
@@ -24,6 +25,7 @@ function LoginPage() {
       errors.password = 'Password is required';
     }
 
+    // Jika tidak ada kesalahan, lanjutkan dengan logika login
     if (errors && Object.keys(errors).length === 0) {
       try {
         const response = await fetch('http://localhost:3000/user/login', {
@@ -35,9 +37,11 @@ function LoginPage() {
         const data = await response.json();
 
         if (response.ok) {
+          // Login berhasil, simpan token dan arahkan ke dashboard
           localStorage.setItem('token', data.token);
           navigate('/dashboard');
         } else {
+          // Login gagal, tampilkan pesan kesalahan
           setErrors({ username: data.message || 'Invalid username or password' });
         }
       } catch (error) {
@@ -49,7 +53,7 @@ function LoginPage() {
     }
   };
 
-  const handleGoogleLoginSuccess = async (credentialResponse) => {
+  const handleGoogleLoginSuccesss = async (credentialResponse) => {
     try {
       const response = await axios.post('http://localhost:3000/auth/google/callback', {
         token: credentialResponse.credential,
@@ -73,7 +77,7 @@ function LoginPage() {
   };
 
   return (
-    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+    <GoogleOAuthProvider clientId="1029364454690-gvv235i6jbdl9cv6lqq4qqjubuoo2aek.apps.googleusercontent.com">
       <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-slate-900 via-green-800 to-blue-900">
         <Link className="justify-center items-center flex w-40 bg-green-600 py-2 px-3 mb-10" to="/">
           Homepage
@@ -121,17 +125,25 @@ function LoginPage() {
             </div>
             <p className="text-gray-700 text-sm px-10 mt-4">
               Don't have an account?{' '}
-              <Link className="text-indigo-600 hover:text-indigo-800" to="/register">Register</Link>
+              <Link className="text-indigo-600 hover:text-indigo-800" to="/register">
+                Register
+              </Link>
             </p>
             <p className="text-gray-700 text-sm px-10 mt-4">
               or {' '}
-              <Link className="text-indigo-600 hover:text-indigo-800" to="/forgot">Forgot Password</Link>
+              <Link className="text-indigo-600 hover:text-indigo-800" to="/forgot">
+                Forgot Password
+              </Link>
             </p>
           </form>
           <div className="flex items-center justify-center mt-4">
             <GoogleLogin
-              onSuccess={handleGoogleLoginSuccess}
-              onError={handleGoogleLoginFailure}
+              onSuccess={(credentialResponse)=>{
+                console.log(credentialResponse)
+              }}
+              onError={()=>{
+                console.log('login error')
+              }}
             />
           </div>
         </div>
