@@ -57,7 +57,7 @@ function LoginPage() {
     try {
       const response = await axios.post('http://localhost:3000/auth/google/callback', {
         token: credentialResponse.credential,
-      });
+      }); 
 
       if (response.data.user) {
         localStorage.setItem('token', response.data.token);
@@ -135,20 +135,16 @@ function LoginPage() {
                 Forgot Password
               </Link>
             </p>
-          </form>
           <div className="flex items-center justify-center mt-4">
             <GoogleLogin
-              onSuccess={(credentialResponse)=>{
-                console.log(credentialResponse)
-              }}
-              onError={()=>{
-                console.log('login error')
-              }}
-            />
+              onSuccess={handleGoogleLoginSuccesss}
+              onError={handleGoogleLoginFailure}
+              />
           </div>
+          </form>
         </div>
       </div>
-    </GoogleOAuthProvider>
+              </GoogleOAuthProvider>
   );
 }
 

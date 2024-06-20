@@ -19,11 +19,7 @@ const port = process.env.PORT || 3000;
 app.use(cookieParser())
 app.use(bodyParser.json());
 app.use(cors({ origin: 'http://localhost:5173' }));
-app.use(helmet({
-  referrerPolicy: {
-    policy: 'strict-origin-when-cross-origin'
-  }
-}));
+app.use(helmet());
 
 app.use((req, res, next) => {
   res.setHeader(
@@ -53,6 +49,11 @@ db.getConnection((err, connection) => {
     console.log('Connected to database');
     connection.release();
   }
+});
+
+app.get('/get-user', (req, res) => {
+  const user = req.session.user;
+  res.send(`Session user: ${user ? user.username : 'undefined'}`);
 });
 
 // Start server

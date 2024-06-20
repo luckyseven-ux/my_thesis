@@ -8,6 +8,42 @@ import { google } from 'googleapis';
 
 
 export const gauth_callback = async (req, res) => {
+  const oauth = new google.auth.OAuth2(
+      process.env.GOOGLE_CLIENT_ID,
+      process.env.GOOGLE_CLIENT_SECRET,
+      'http://localhost:3000/auth/google/callback'
+  );
+
+  const { code } = req.query;
+  try {
+      const { tokens } = await oauth.getToken(code);
+      oauth.setCredentials(tokens);
+
+      const oauth2 = google.oauth2({
+          auth: oauth,
+          version: 'v2'
+      });
+      const { data } = await oauth2.userinfo.get();
+
+      if (!data) {
+          return res.json({ data: data });
+      }
+
+      let user = {
+          id: data.id,
+          email: data.email,
+          name: data.name,
+          picture: data.picture
+      };
+
+      res.json({ user });
+  } catch (error) {
+      console.error('Error during Google OAuth callback:', error);
+      res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+export const post_gauth_callback = async (req, res) => {
   const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_SECRET,
@@ -15,13 +51,17 @@ export const gauth_callback = async (req, res) => {
   );
 
   const { token } = req.body;
+  if (!token) {
+    return res.status(400).json({ message: 'Token is missing' });
+  }
+
   try {
     const ticket = await oauth2Client.verifyIdToken({
       idToken: token,
       audience: process.env.GOOGLE_CLIENT_ID,
     });
     const payload = ticket.getPayload();
-    
+
     const user = {
       id: payload.sub,
       email: payload.email,
@@ -30,19 +70,62 @@ export const gauth_callback = async (req, res) => {
     };
 
     // Check if user exists, if not create one
-    const [existingUser] = await db.query('SELECT * FROM users WHERE email = ?', [user.email]);
+    const [existingUser] = await db.query('SELECT * FROM login WHERE email = ?', [user.email]);
     if (existingUser.length === 0) {
-      await db.query('INSERT INTO users (google_id, email, name, picture) VALUES (?, ?, ?, ?)', [user.id, user.email, user.name, user.picture]);
+      const userId = crypto.randomUUID().substring(0, 5);
+      await db.query('INSERT INTO login (id, email, username) VALUES (?, ?, ?)', [userId, user.email, user.name]);
     }
 
+    // Insert user session
+    await db.query('INSERT INTO user_sessions (username, login_time) VALUES (?, CURRENT_TIMESTAMP)', [user.name]);
+
+    // Generate JWT token for authentication
     const jwtToken = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
+    // Save user session in req.session
+    req.session.user = user;
+
+    // Respond with user information and JWT token
     res.json({ user, token: jwtToken });
+
+    // Update logout_time for the latest active session
+    
   } catch (error) {
     console.error('Error during Google OAuth callback:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+export const logout_google = async (req, res) => {
+  try {
+    const user = req.session.user;
+    
+    if (user) {
+      // Update logout time in user_sessions table
+      await db.query(
+        'UPDATE user_sessions SET logout_time = CURRENT_TIMESTAMP WHERE username = ? AND logout_time IS NULL ORDER BY login_time DESC LIMIT 1',
+        [user.name]
+      );
+
+      // Clear session
+      req.session.destroy((err) => {
+        if (err) {
+          console.error('Error destroying session:', err);
+          return res.status(500).json({ message: 'Error during logout' });
+        }
+        
+        res.clearCookie('connect.sid'); // Clear session cookie
+        res.status(200).json({ message: 'Logout successful' });
+      });
+    } else {
+      res.status(400).json({ message: 'No user session found' });
+    }
+  } catch (error) {
+    console.error('Error during logout:', error);
+    res.status(500).json({ message: 'Internal server error during logout' });
+  }
+};
+
 export const deleteUser = async (req, res) => {
   const { username, email } = req.body;
 

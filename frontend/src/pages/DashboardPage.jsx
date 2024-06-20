@@ -1,39 +1,56 @@
-
-
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'
+import axios from 'axios';
 
 const DashboardPage = () => {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://apis.google.com/js/platform.js';
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
 
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
 
   const handleLogout = async () => {
-    try {
-      // Kirim permintaan logout ke backend
-      const token = localStorage.getItem('token');
-      await axios.post('http://localhost:3000/user/logout', {}, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+    const authType = localStorage.getItem('authType');
+    const token = localStorage.getItem('token');
 
-      // Hapus token dari localStorage atau sessionStorage
+    try {
+      if (authType === 'google') {
+        // Logout dari Google
+        const auth2 = window.gapi.auth2.getAuthInstance();
+        await auth2.signOut();
+
+        // Kirim permintaan logout ke backend untuk Google auth
+        await axios.post('http://localhost:3000/auth/google/logout', {}, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+      } else {
+        // Logout untuk autentikasi normal
+        await axios.post('http://localhost:3000/user/logout', {}, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+      }
+
+      // Hapus token dan authType dari localStorage
       localStorage.removeItem('token');
+      localStorage.removeItem('authType');
 
       // Redirect ke halaman login
       navigate('/');
     } catch (error) {
       console.error('Error logging out:', error);
     }
-  };
-  
-  const handleLogout2 = () => {
-    // Hapus token dari localStorage atau sessionStorage
-    localStorage.removeItem('token');
-    // Redirect ke halaman login
-    navigate('/login');
   };
 
   return (
