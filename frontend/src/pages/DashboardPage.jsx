@@ -6,47 +6,58 @@ const DashboardPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://apis.google.com/js/platform.js';
-    script.async = true;
-    script.defer = true;
-    document.head.appendChild(script);
+    const handleBeforeUnload = async (event) => {
+      event.preventDefault(); // Membatalkan event default
+      const token = localStorage.getItem('token');
+      const authType = localStorage.getItem('authType');
+
+      try {
+        if (authType === 'google') {
+          // Logout dari Google
+          const auth2 = window.gapi.auth2.getAuthInstance();
+          await auth2.signOut();
+        }
+
+        // Mengirim permintaan logout ke backend
+        await axios.post('http://localhost:3000/user/logout', {}, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        localStorage.removeItem('token');
+        localStorage.removeItem('authType');
+      } catch (error) {
+        console.error('Error logging out:', error);
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
 
     return () => {
-      document.head.removeChild(script);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, []);
 
   const handleLogout = async () => {
-    const authType = localStorage.getItem('authType');
     const token = localStorage.getItem('token');
+    const authType = localStorage.getItem('authType');
 
     try {
       if (authType === 'google') {
         // Logout dari Google
         const auth2 = window.gapi.auth2.getAuthInstance();
         await auth2.signOut();
-
-        // Kirim permintaan logout ke backend untuk Google auth
-        await axios.post('http://localhost:3000/auth/google/logout', {}, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-      } else {
-        // Logout untuk autentikasi normal
-        await axios.post('http://localhost:3000/user/logout', {}, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
       }
 
-      // Hapus token dan authType dari localStorage
+      await axios.post('http://localhost:3000/user/logout', {}, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
       localStorage.removeItem('token');
       localStorage.removeItem('authType');
-
-      // Redirect ke halaman login
       navigate('/');
     } catch (error) {
       console.error('Error logging out:', error);
@@ -65,8 +76,30 @@ const DashboardPage = () => {
         </button>
       </nav>
       <div className="flex flex-col items-center justify-center mt-8">
-        <h2 className="text-2xl">Welcome to the Dashboard</h2>
-        {/* Konten dashboard Anda di sini */}
+        <h2 className="text-2xl mb-6">Selamat datang di Dashboard</h2>
+        <div className="flex justify-between w-full max-w-md">
+          <button
+            type="button"
+            className="flex-1 mx-2 bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
+            onClick={() => navigate('/record')}
+          >
+            Tambah Catatan
+          </button>
+          <button
+            type="button"
+            className="flex-1 mx-2 bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
+            onClick={() => navigate('/history-record')}
+          >
+            Riwayat Catatan
+          </button>
+          <button
+            type="button"
+            className="flex-1 mx-2 bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
+            onClick={() => navigate('/history-login')}
+          >
+            Riwayat Login
+          </button>
+        </div>
       </div>
     </div>
   );

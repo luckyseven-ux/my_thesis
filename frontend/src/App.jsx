@@ -8,6 +8,9 @@ import DashboardPage from './pages/DashboardPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import GoogleLoginPage from './test/GoogleLoginPage';
+import RecordPage from './pages/RecordPage';
+import HistoryLoginPage from './pages/HistoryLoginPage';
+import HistoryRecordPage from './pages/HistoryRecordPage';
 
 function App() {
   
@@ -21,6 +24,9 @@ function App() {
         <Route path="/forgot" element={<ForgotPasswordPage />} />
         <Route path="/reset/:token" element={<ResetPasswordPage />} />
         <Route path="/auth" element={<GoogleLoginPage />} />
+        <Route path="/record" element={<RecordPage />} />
+        <Route path="/history-login" element={<HistoryLoginPage />} />
+        <Route path="/history-record" element={<HistoryRecordPage />} />
         
       </Routes>
     </Router>
