@@ -6,6 +6,13 @@ const DashboardPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Check if the user is authenticated
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login'); // Redirect to login page if not authenticated
+    }})
+
+  useEffect(() => {
     const handleBeforeUnload = async (event) => {
       event.preventDefault(); // Membatalkan event default
       const token = localStorage.getItem('token');
@@ -81,23 +88,30 @@ const DashboardPage = () => {
           <button
             type="button"
             className="flex-1 mx-2 bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
-            onClick={() => navigate('/record')}
+            onClick={() => navigate('/test')}
           >
-            Tambah Catatan
+            Create Diabetic Record
           </button>
           <button
             type="button"
             className="flex-1 mx-2 bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
             onClick={() => navigate('/history-record')}
           >
-            Riwayat Catatan
+            See My History Record
+          </button>
+          <button
+            type="button"
+            className="flex-1 mx-2 bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
+            onClick={() => navigate('/datauser')}
+          >
+            userdata
           </button>
           <button
             type="button"
             className="flex-1 mx-2 bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
             onClick={() => navigate('/history-login')}
           >
-            Riwayat Login
+            History Login
           </button>
         </div>
       </div>

@@ -5,7 +5,7 @@ melihat datanya sendiri gunakan select data login when username
 
 3.login menggunakan akun google
 
-4.membuat cookies dann hashing pass 
+4.membuat cookies dann hashing password
 
 5.menampilkan seluruh rekaman data dari tanggal, nama ,jenis kelamin terekam
 
@@ -20,3 +20,8 @@ melihat datanya sendiri gunakan select data login when username
 10.buat data diabetes supaya bisa di expand
 
 11. buat hasil prediksinya berupa persen, misalkan : yang direkam memiliki kemungkinan 60% pengidap diabetes
+
+12. dan logot time dibuat otomatis ketika user terputus dari koneksi
+
+13.atau jika record belum berhasil buat backendnya menggunakan 
+flask semuanya tidak usah  menggunakan express untuk bagian backendnya bagian recordnya saja tepatnya bagian localhost:5000/predict/record(gunakan flask saja)

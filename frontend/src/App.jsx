@@ -11,6 +11,8 @@ import GoogleLoginPage from './test/GoogleLoginPage';
 import RecordPage from './pages/RecordPage';
 import HistoryLoginPage from './pages/HistoryLoginPage';
 import HistoryRecordPage from './pages/HistoryRecordPage';
+import UserDataPage from './pages/UserDataPage';
+import TestRecordPage from './pages/TestRecordPage';
 
 function App() {
   
@@ -27,6 +29,8 @@ function App() {
         <Route path="/record" element={<RecordPage />} />
         <Route path="/history-login" element={<HistoryLoginPage />} />
         <Route path="/history-record" element={<HistoryRecordPage />} />
+        <Route path="/datauser" element={<UserDataPage />} />
+        <Route path="/test" element={<TestRecordPage />} />
         
       </Routes>
     </Router>

@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken'
 import crypto from 'crypto'
 
 import nodemailer from 'nodemailer'
+import { sub } from '@tensorflow/tfjs';
 
 export const listUsers = async (req, res) => {
   const userId = req.user.userId;
@@ -46,6 +47,8 @@ export const register = async (req, res) => {
 };
 
 
+// Mengubah login controller untuk menghindari pengiriman header ganda dan menangani error fetch dengan benar
+
 export const login = async (req, res) => {
   const { username, password } = req.body;
 
@@ -65,28 +68,45 @@ export const login = async (req, res) => {
       return res.status(401).json({ message: 'Password salah' });
     }
 
-    const token = jwt.sign({ username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ username: user.username, id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     // Mencatat waktu login
     await db.query('INSERT INTO user_sessions (username, login_time) VALUES (?, CURRENT_TIMESTAMP)', [username]);
 
     // Set session
     req.session.user = {
+      id: user.id,
       username: user.username,
       email: user.email
     };
 
     // Set cookie
     res.cookie('username', user.username, { httpOnly: true });
+    console.log(`your token ${token}`)
+    
+    // Kirim token ke server Flask
+    try {
+      await fetch('http://localhost:5000/token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ token })
+      });
+    } catch (fetchError) {
+      console.error('Error sending token to Flask:', fetchError);
+      // Tambahkan logika penanganan error jika diperlukan, namun tidak mengirim respons kedua
+    }
 
     // Send response
-    res.json({ token });
+    return res.json({ token, user_id: user.id });
 
   } catch (err) {
     console.error('Database error:', err);
-    res.status(500).json({ message: 'Database error', error: err.message });
+    return res.status(500).json({ message: 'Database error', error: err.message });
   }
 };
+
 
 // Fungsi untuk logout
 export const logout = async (req, res) => {

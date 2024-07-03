@@ -8,7 +8,8 @@ import helmet from  'helmet'
 import { db } from './src/database/db.js';
 import authRoutes from './src/routes/authRoutes.js';
 import userRoutes from './src/routes/userRoutes.js';
-import predictRoutes from './src/routes/predictRoutes.js';
+import recordRoutes from './src/routes/recordRoutes.js';
+import historyRoutes from './src/routes/historyRoutes.js';
 import session from 'express-session';
 
 dotenv.config();
@@ -18,7 +19,7 @@ const port = process.env.PORT || 3000;
 // Middleware
 app.use(cookieParser())
 app.use(bodyParser.json());
-app.use(cors({ origin: 'http://localhost:5173' }));
+app.use(cors({ origin: 'http://localhost:5173' },{origin:'http://localhost:5000'}));
 app.use(helmet());
 
 app.use((req, res, next) => {
@@ -30,16 +31,17 @@ app.use((req, res, next) => {
 });
 
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'some secret',
+  secret: '$buncit&12345',
   resave: false,
-  saveUninitialized: false,
-  cookie: { secure: process.env.NODE_ENV === 'production', maxAge: 300000 },
+  saveUninitialized: true,
+  cookie: { secure: process.env.NODE_ENV === 'production', maxAge: 900000 },
 }));
 
 // Routes
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
-app.use('/predict', predictRoutes);
+app.use('/predict', recordRoutes);
+app.use('/history', historyRoutes);
 
 // Check database connection
 db.getConnection((err, connection) => {

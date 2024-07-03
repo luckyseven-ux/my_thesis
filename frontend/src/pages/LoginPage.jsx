@@ -16,7 +16,7 @@ function LoginPage() {
     event.preventDefault();
     const { username, password } = values;
     let errors = {};
-
+  
     // Validasi form fields
     if (username.trim() === '') {
       errors.username = 'Username is required';
@@ -24,34 +24,35 @@ function LoginPage() {
     if (password.trim() === '') {
       errors.password = 'Password is required';
     }
-
+  
     // Jika tidak ada kesalahan, lanjutkan dengan logika login
-    if (errors && Object.keys(errors).length === 0) {
+    if (Object.keys(errors).length === 0) {
       try {
         const response = await fetch('http://localhost:3000/user/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, password }),
         });
-
+  
         const data = await response.json();
-
-        if (response.ok) {
-          // Login berhasil, simpan token dan arahkan ke dashboard
-          localStorage.setItem('token', data.token);
+  
+        if (response.status === 200) {
+          const { token, user_id } = data;  // Mengambil dari data, bukan response.data
+          localStorage.setItem('token', token);
+          localStorage.setItem('user_id', user_id);
           navigate('/dashboard');
         } else {
-          // Login gagal, tampilkan pesan kesalahan
-          setErrors({ username: data.message || 'Invalid username or password' });
+          setErrors({ login: 'Login failed' });  // Set kesalahan login ke state errors
         }
       } catch (error) {
-        console.error('Error:', error);
-        setErrors({ username: 'An error occurred. Please try again.' });
+        console.error('Login error:', error);
+        setErrors({ login: 'An error occurred. Please try again.' });  // Set kesalahan jaringan ke state errors
       }
     } else {
-      setErrors(errors);
+      setErrors(errors);  // Set kesalahan validasi ke state errors
     }
   };
+  
 
   const handleGoogleLoginSuccesss = async (credentialResponse) => {
     try {

@@ -5,14 +5,11 @@ from tensorflow.keras.models import load_model
 import numpy as np
 import logging
 import datetime
-import jwt  # Import JWT library
-from functools import wraps
 
 app = Flask(__name__)
-CORS(app, supports_credentials=True)  # Enable CORS for all routes
+CORS(app ,supports_credentials=True)  # Enable CORS for all routes
 
 # Configurations
-app.config['SECRET_KEY'] = '$buncit&12345'  # Ganti dengan kunci rahasia yang sama dengan yang digunakan di Express.js
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root@localhost/percobaan'  # Sesuaikan dengan pengaturan MySQL Anda
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -38,26 +35,7 @@ class Record(db.Model):
 
 # Load the model
 model = load_model('E:\\syntax code\\python\\jupytr\\website html\\latihan fullstack\\react js\\skripsi\\backend\\model\\diabetes-main\\diabetes_ANN.h5')
-
-# Function to generate token
-def token_required(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        token = request.headers.get('Authorization')
-        if not token:
-            return jsonify({'message': 'Token is missing!'}), 401
-        try:
-            data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
-            request.user_id = data['id']
-        except jwt.ExpiredSignatureError:
-            return jsonify({'message': 'Token has expired!'}), 401
-        except jwt.InvalidTokenError:
-            return jsonify({'message': 'Token is invalid!'}), 401
-        return f(*args, **kwargs)
-    return decorated
-
 @app.route('/predict/record', methods=['POST'])
-@token_required
 def predict_record():
     try:
         data = request.get_json(force=True)
@@ -69,13 +47,11 @@ def predict_record():
                 logging.error(f"Missing field: {field}")
                 return jsonify({'error': f'{field} is required'}), 422
 
-        
-            input_data = np.array([[
-                float(data['pregnancies']), float(data['glucose']), float(data['blood_pressure']),
-                float(data['skin_thickness']), float(data['insulin']), float(data['bmi']),
-                float(data['diabetes_pedigree_function']), float(data['age'])
-            ]])
-        
+        input_data = np.array([[
+            float(data['pregnancies']), float(data['glucose']), float(data['blood_pressure']),
+            float(data['skin_thickness']), float(data['insulin']), float(data['bmi']),
+            float(data['diabetes_pedigree_function']), float(data['age'])
+        ]])
 
         logging.info(f"Input data for prediction: {input_data}")
 
@@ -99,8 +75,8 @@ def predict_record():
         }
 
         # Save the prediction to the database
-        new_record = Record(
-            user_id=request.user_id,  # Menggunakan user_id dari token
+        new_record = Record(#ini nama tablenya huruf kecil besar tidak berpengaruh namanya :record
+            user_id='4b0a3',  # Ganti dengan ID user yang sebenarnya
             name=data['name'],
             pregnancies=data['pregnancies'],
             glucose=data['glucose'],
@@ -123,4 +99,4 @@ def predict_record():
         return jsonify({'error': str(e)}), 400
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=5001)

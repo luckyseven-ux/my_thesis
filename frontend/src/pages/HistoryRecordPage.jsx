@@ -7,10 +7,18 @@ const HistoryRecordPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchRecords = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:3000/record/history', {
+    // Check if the user is authenticated
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login'); // Redirect to login page if not authenticated
+    }})
+
+    
+    useEffect(() => {
+      const fetchRecords = async () => {
+        try {
+          const token = localStorage.getItem('token');
+          const response = await axios.get('http://localhost:3000/history/record', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setRecords(response.data.records);
@@ -18,8 +26,42 @@ const HistoryRecordPage = () => {
         console.error('Error fetching records:', error);
       }
     };
-
+    
     fetchRecords();
+  }, []);
+  
+  useEffect(() => {
+    const handleBeforeUnload = async (event) => {
+      event.preventDefault(); // Membatalkan event default
+      const token = localStorage.getItem('token');
+      const authType = localStorage.getItem('authType');
+
+      try {
+        if (authType === 'google') {
+          // Logout dari Google
+          const auth2 = window.gapi.auth2.getAuthInstance();
+          await auth2.signOut();
+        }
+
+        // Mengirim permintaan logout ke backend
+        await axios.post('http://localhost:3000/user/logout', {}, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        localStorage.removeItem('token');
+        localStorage.removeItem('authType');
+      } catch (error) {
+        console.error('Error logging out:', error);
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
   }, []);
 
   return (

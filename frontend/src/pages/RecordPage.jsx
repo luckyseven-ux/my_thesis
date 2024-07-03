@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,52 +18,51 @@ const RecordPage = () => {
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login'); // Redirect to login page if not authenticated
+    }
+  }, [navigate]);
+
   const handleInput = (event) => {
     setValues((prev) => ({ ...prev, [event.target.name]: event.target.value }));
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    // Validate form fields
+  
     let errors = {};
-    if (values.name.trim() === '') {
-      errors.name = 'Name is required';
-    }
-    if (values.pregnancies.trim() === '') {
-      errors.pregnancies = 'Pregnancies is required';
-    }
-    if (values.glucose.trim() === '') {
-      errors.glucose = 'Glucose is required';
-    }
-    if (values.blood_pressure.trim() === '') {
-      errors.blood_pressure = 'Blood Pressure is required';
-    }
-    if (values.skin_thickness.trim() === '') {
-      errors.skin_thickness = 'Skin Thickness is required';
-    }
-    if (values.insulin.trim() === '') {
-      errors.insulin = 'Insulin is required';
-    }
-    if (values.bmi.trim() === '') {
-      errors.bmi = 'BMI is required';
-    }
-    if (values.diabetes_pedigree_function.trim() === '') {
-      errors.diabetes_pedigree_function = 'Diabetes Pedigree Function is required';
-    }
-    if (values.age.trim() === '') {
-      errors.age = 'Age is required';
-    }
-
+    const requiredFields = ['name', 'pregnancies', 'glucose', 'blood_pressure', 'skin_thickness', 'insulin', 'bmi', 'diabetes_pedigree_function', 'age'];
+  
+    requiredFields.forEach(field => {
+      if (values[field].trim() === '') {
+        errors[field] = `${field.charAt(0).toUpperCase() + field.slice(1)} is required`;
+      }
+    });
+  
     if (Object.keys(errors).length === 0) {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.post('http://localhost:3000/record', values, {
+        console.log('Submitting data:', values); // Logging data yang dikirim
+  
+        const response = await axios.post('http://localhost:5000/predict/record', {
+          name: values.name,
+          pregnancies: parseInt(values.pregnancies, 10),
+          glucose: parseInt(values.glucose, 10),
+          blood_pressure: parseInt(values.blood_pressure, 10),
+          skin_thickness: parseInt(values.skin_thickness, 10),
+          insulin: parseInt(values.insulin, 10),
+          bmi: parseFloat(values.bmi),
+          diabetes_pedigree_function: parseFloat(values.diabetes_pedigree_function),
+          age: parseInt(values.age, 10)
+        }, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
-
+  
         if (response.status === 201) {
-          setMessage('Record saved successfully');
+          const { probability } = response.data;
+          setMessage(`Record saved successfully with a diabetes probability of ${probability.toFixed(2)}%`);
           navigate('/dashboard');
         } else {
           setMessage('Failed to save record');
@@ -157,6 +156,7 @@ const RecordPage = () => {
             <input
               id="bmi"
               type="number"
+              step="0.1"
               name="bmi"
               value={values.bmi}
               onChange={handleInput}
@@ -168,6 +168,7 @@ const RecordPage = () => {
             <input
               id="diabetes_pedigree_function"
               type="number"
+              step="0.01"
               name="diabetes_pedigree_function"
               value={values.diabetes_pedigree_function}
               onChange={handleInput}
@@ -185,7 +186,7 @@ const RecordPage = () => {
               className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-indigo-500"
             />
           </div>
-          <div className="flex items-center ">
+          <div className="flex items-center">
             <button
               type="submit"
               className="w-40 mx-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -194,16 +195,16 @@ const RecordPage = () => {
             </button>
             <button
               type="button"
-              onClick={()=>navigate('/dashboard')}
+              onClick={() => navigate('/dashboard')}
               className="w-40 mx-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
-              dashboard
+              Dashboard
             </button>
           </div>
         </form>
       </div>
     </div>
   );
-}
+};
 
 export default RecordPage;
