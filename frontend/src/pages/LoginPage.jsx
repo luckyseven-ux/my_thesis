@@ -16,7 +16,7 @@ function LoginPage() {
     event.preventDefault();
     const { username, password } = values;
     let errors = {};
-  
+
     // Validasi form fields
     if (username.trim() === '') {
       errors.username = 'Username is required';
@@ -24,7 +24,7 @@ function LoginPage() {
     if (password.trim() === '') {
       errors.password = 'Password is required';
     }
-  
+
     // Jika tidak ada kesalahan, lanjutkan dengan logika login
     if (Object.keys(errors).length === 0) {
       try {
@@ -33,9 +33,11 @@ function LoginPage() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, password }),
         });
-  
         const data = await response.json();
-  
+        
+        // Log untuk memeriksa respons dari server
+        console.log('Login response:', data);
+        
         if (response.status === 200) {
           const { token, user_id } = data;  // Mengambil dari data, bukan response.data
           localStorage.setItem('token', token);
@@ -52,13 +54,12 @@ function LoginPage() {
       setErrors(errors);  // Set kesalahan validasi ke state errors
     }
   };
-  
 
   const handleGoogleLoginSuccesss = async (credentialResponse) => {
     try {
       const response = await axios.post('http://localhost:3000/auth/google/callback', {
         token: credentialResponse.credential,
-      }); 
+      });
 
       if (response.data.user) {
         localStorage.setItem('token', response.data.token);

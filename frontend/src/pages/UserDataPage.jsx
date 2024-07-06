@@ -1,30 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const UserDataPage = () => {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const fetchData = async () => {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        setError('Token not found');
-        return;
-      }
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
 
+  useEffect(() => {
+    const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/user/data', {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setUserData(response.data);
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          "http://localhost:3000/user/profile",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        console.log("Received user data:", response.data.profile);
+        setUserData(response.data.profile[0]);
       } catch (error) {
-        console.error('Error fetching user data:', error);
-        setError('An error occurred while fetching user data');
+        console.error("Error fetching user data:", error);
+        setError('Failed to fetch user data');
       }
     };
 
-    fetchData();
+    fetchUserData();
   }, []);
 
   if (error) {
@@ -36,10 +44,21 @@ const UserDataPage = () => {
   }
 
   return (
-    <div>
-      <h1>User Data</h1>
-      <p>Username: {userData.username}</p>
-      <p>Email: {userData.email}</p>
+    <div className="min-h-screen bg-sea-950 text-gray-100 flex items-center justify-center">
+      <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h1 className="text-3xl font-bold mb-4">User Data</h1>
+        <div className="mb-4">
+          <p className="mb-2"><span className="font-semibold">ID:</span> {userData.id}</p>
+          <p className="mb-2"><span className="font-semibold">Username:</span> {userData.username}</p>
+          <p className="mb-2"><span className="font-semibold">Email:</span> {userData.email}</p>
+        </div>
+        <button
+          onClick={() => navigate('/dashboard')}
+          className="w-full py-2 mt-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
+        >
+          Back to Dashboard
+        </button>
+      </div>
     </div>
   );
 };

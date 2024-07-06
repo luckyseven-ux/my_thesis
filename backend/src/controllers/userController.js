@@ -82,7 +82,7 @@ export const login = async (req, res) => {
 
     // Set cookie
     res.cookie('username', user.username, { httpOnly: true });
-    console.log(`your token ${token}`)
+    console.log(`your token ${token}`);
     
     // Kirim token ke server Flask
     try {
@@ -106,7 +106,6 @@ export const login = async (req, res) => {
     return res.status(500).json({ message: 'Database error', error: err.message });
   }
 };
-
 
 // Fungsi untuk logout
 export const logout = async (req, res) => {
@@ -195,3 +194,44 @@ export const resetPassword = async (req, res) => {
     res.status(500).json({ message: 'Error resetting password' });
   }
 };
+
+export const Feedback = async (req, res) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader) {
+    return res.status(401).json({ message: 'Authorization header missing' });
+  }
+
+  const token = authHeader.split(' ')[1];
+  if (!token) {
+    return res.status(401).json({ message: 'Token missing' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+
+    const { username } = req.user;
+    const { feedback } = req.body;
+
+    const [content] = await db.query('INSERT INTO feedback (username, content) VALUES (?, ?)', [username, feedback]);
+    res.status(200).json({ message: 'Feedback submitted successfully' });
+    console.log('content feedback:', content);
+  } catch (error) {
+    console.error('Error in Feedback:', error);
+    res.status(401).json({ message: 'Invalid token', error: error.message });
+  }
+};
+
+export const userProfileData = async (req, res) => {
+  try {
+    const username = req.user.username; // Pastikan ini adalah cara Anda mengekstrak username dari token
+    const [profile] = await db.query('SELECT username, id, email FROM login WHERE username = ?', [username]);
+    console.log('profile:', profile);
+    res.status(200).json({ profile });
+  } catch (error) {
+    console.error('Error in userProfileData:', error);
+    res.status(401).json({ message: 'Invalid token', error: error.message });
+  }
+};
+
+

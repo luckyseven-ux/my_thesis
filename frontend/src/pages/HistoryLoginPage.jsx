@@ -76,6 +76,7 @@ const HistoryLoginPage = () => {
       minute: '2-digit',
       second: '2-digit'
     }).format(date);
+    
   };
 
   return (
@@ -84,26 +85,59 @@ const HistoryLoginPage = () => {
         <h1 className="text-3xl font-bold">Your History Logins</h1>
         <button
           onClick={() => navigate('/dashboard')}
-          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
+          className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
         >
           Back to Dashboard
         </button>
       </nav>
-      <div className="flex flex-col items-center justify-center mt-8">
-        {sessions.length > 0 ? (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 p-4">
-            {sessions.map((session, index) => (
-              <div key={index} className="bg-gray-800 rounded-xl shadow-lg p-5 flex flex-col justify-between">
-                <div className="text-white">
-                  <p><span className="font-semibold">Login Time:</span> {formatTimeToJakarta(session.login_time)}</p>
-                  <p><span className="font-semibold">Logout Time:</span> {formatTimeToJakarta(session.logout_time)}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p className="text-xl">No login sessions found.</p>
-        )}
+      <div className="container mx-auto px-4 sm:px-8 py-8">
+        <div className="py-4">
+          <h2 className="text-2xl font-semibold leading-tight">Login Sessions</h2>
+        </div>
+        <div className="min-w-full shadow overflow-hidden rounded-lg border-b border-gray-200">
+          <table className="min-w-full leading-normal">
+            <thead>
+              <tr>
+                <th className="px-5 py-3 bg-gray-800 text-left text-xs font-semibold text-gray-100 uppercase tracking-wider">
+                  No
+                </th>
+                <th className="px-5 py-3 bg-gray-800 text-left text-xs font-semibold text-gray-100 uppercase tracking-wider">
+                  Day
+                </th>
+                <th className="px-5 py-3 bg-gray-800 text-left text-xs font-semibold text-gray-100 uppercase tracking-wider">
+                  Login Time
+                </th>
+                <th className="px-5 py-3 bg-gray-800 text-left text-xs font-semibold text-gray-100 uppercase tracking-wider">
+                  Logout Time
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {sessions.length > 0 ? sessions.map((session, index) => (
+                <tr key={index}>
+                  <td className="px-5 py-5 border-b border-gray-200 bg-gray-800 text-sm">
+                    <p className="text-white">{index + 1}</p>
+                  </td>
+                  <td className="px-5 py-5 border-b border-gray-200 bg-gray-800 text-sm">
+                    <p className="text-white">{new Date(session.login_time).toLocaleDateString('id-ID', { weekday: 'long' })}</p>
+                  </td>
+                  <td className="px-5 py-5 border-b border-gray-200 bg-gray-800 text-sm">
+                    <p className="text-white">{formatTimeToJakarta(session.login_time)}</p>
+                  </td>
+                  <td className="px-5 py-5 border-b border-gray-200 bg-gray-800 text-sm">
+                    <p className="text-white">{formatTimeToJakarta(session.logout_time)}</p>
+                  </td>
+                </tr>
+              )) : (
+                <tr>
+                  <td colSpan="4" className="px-5 py-5 border-b border-gray-200 bg-gray-800 text-sm">
+                    <p className="text-white text-center">No login sessions found</p>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

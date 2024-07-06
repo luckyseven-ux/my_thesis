@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import GoogleAuth from '../test/GoogleLoginPage';
+
 
 function Home() {
   const navigate = useNavigate();

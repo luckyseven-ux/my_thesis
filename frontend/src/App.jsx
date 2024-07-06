@@ -13,6 +13,9 @@ import HistoryLoginPage from './pages/HistoryLoginPage';
 import HistoryRecordPage from './pages/HistoryRecordPage';
 import UserDataPage from './pages/UserDataPage';
 import TestRecordPage from './pages/TestRecordPage';
+import FeedbackPage from './pages/FeedbackPage';
+import AboutPage from './pages/aboutPage';
+import BlogPage from './pages/BlogPage';
 
 function App() {
   
@@ -31,6 +34,9 @@ function App() {
         <Route path="/history-record" element={<HistoryRecordPage />} />
         <Route path="/datauser" element={<UserDataPage />} />
         <Route path="/test" element={<TestRecordPage />} />
+        <Route path="/feedback" element={<FeedbackPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/blog" element={<BlogPage />} />
         
       </Routes>
     </Router>
