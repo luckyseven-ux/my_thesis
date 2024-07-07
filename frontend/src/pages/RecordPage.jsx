@@ -77,82 +77,82 @@ const RecordPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-slate-900 via-green-800 to-blue-900">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900">
       <div className="w-full max-w-md">
-        <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
-          <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6">Add Record</h1>
+        <form className="bg-gray-800 shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
+          <h1 className="text-3xl font-semibold text-center text-white mb-6">Add Record</h1>
           {message && <p className="text-green-500 mb-4">{message}</p>}
           {Object.keys(errors).map((key) => (
             <p key={key} className="text-red-500 mb-4">{errors[key]}</p>
           ))}
           <div className="mb-4">
-            <label htmlFor="name" className="block text-gray-700 font-bold mb-2">Name</label>
+            <label htmlFor="name" className="block text-gray-400 font-bold mb-2">Name</label>
             <input
               id="name"
               type="text"
               name="name"
               value={values.name}
               onChange={handleInput}
-              className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-indigo-500"
+              className="w-full px-3 py-2 text-gray-300 border border-gray-700 rounded-lg focus:outline-none focus:border-indigo-500 transition duration-300 ease-in-out transform hover:scale-105"
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="pregnancies" className="block text-gray-700 font-bold mb-2">Pregnancies</label>
+            <label htmlFor="pregnancies" className="block text-gray-400 font-bold mb-2">Pregnancies</label>
             <input
               id="pregnancies"
               type="number"
               name="pregnancies"
               value={values.pregnancies}
               onChange={handleInput}
-              className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-indigo-500"
+              className="w-full px-3 py-2 text-gray-300 border border-gray-700 rounded-lg focus:outline-none focus:border-indigo-500 transition duration-300 ease-in-out transform hover:scale-105"
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="glucose" className="block text-gray-700 font-bold mb-2">Glucose</label>
+            <label htmlFor="glucose" className="block text-gray-400 font-bold mb-2">Glucose</label>
             <input
               id="glucose"
               type="number"
               name="glucose"
               value={values.glucose}
               onChange={handleInput}
-              className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-indigo-500"
+              className="w-full px-3 py-2 text-gray-300 border border-gray-700 rounded-lg focus:outline-none focus:border-indigo-500 transition duration-300 ease-in-out transform hover:scale-105"
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="blood_pressure" className="block text-gray-700 font-bold mb-2">Blood Pressure</label>
+            <label htmlFor="blood_pressure" className="block text-gray-400 font-bold mb-2">Blood Pressure</label>
             <input
               id="blood_pressure"
               type="number"
               name="blood_pressure"
               value={values.blood_pressure}
               onChange={handleInput}
-              className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-indigo-500"
+              className="w-full px-3 py-2 text-gray-300 border border-gray-700 rounded-lg focus:outline-none focus:border-indigo-500 transition duration-300 ease-in-out transform hover:scale-105"
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="skin_thickness" className="block text-gray-700 font-bold mb-2">Skin Thickness</label>
+            <label htmlFor="skin_thickness" className="block text-gray-400 font-bold mb-2">Skin Thickness</label>
             <input
               id="skin_thickness"
               type="number"
               name="skin_thickness"
               value={values.skin_thickness}
               onChange={handleInput}
-              className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-indigo-500"
+              className="w-full px-3 py-2 text-gray-300 border border-gray-700 rounded-lg focus:outline-none focus:border-indigo-500 transition duration-300 ease-in-out transform hover:scale-105"
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="insulin" className="block text-gray-700 font-bold mb-2">Insulin</label>
+            <label htmlFor="insulin" className="block text-gray-400 font-bold mb-2">Insulin</label>
             <input
               id="insulin"
               type="number"
               name="insulin"
               value={values.insulin}
               onChange={handleInput}
-              className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-indigo-500"
+              className="w-full px-3 py-2 text-gray-300 border border-gray-700 rounded-lg focus:outline-none focus:border-indigo-500 transition duration-300 ease-in-out transform hover:scale-105"
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="bmi" className="block text-gray-700 font-bold mb-2">BMI</label>
+            <label htmlFor="bmi" className="block text-gray-400 font-bold mb-2">BMI</label>
             <input
               id="bmi"
               type="number"
@@ -160,11 +160,11 @@ const RecordPage = () => {
               name="bmi"
               value={values.bmi}
               onChange={handleInput}
-              className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-indigo-500"
+              className="w-full px-3 py-2 text-gray-300 border border-gray-700 rounded-lg focus:outline-none focus:border-indigo-500 transition duration-300 ease-in-out transform hover:scale-105"
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="diabetes_pedigree_function" className="block text-gray-700 font-bold mb-2">Diabetes Pedigree Function</label>
+            <label htmlFor="diabetes_pedigree_function" className="block text-gray-400 font-bold mb-2">Diabetes Pedigree Function</label>
             <input
               id="diabetes_pedigree_function"
               type="number"
@@ -172,31 +172,31 @@ const RecordPage = () => {
               name="diabetes_pedigree_function"
               value={values.diabetes_pedigree_function}
               onChange={handleInput}
-              className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-indigo-500"
+              className="w-full px-3 py-2 text-gray-300 border border-gray-700 rounded-lg focus:outline-none focus:border-indigo-500 transition duration-300 ease-in-out transform hover:scale-105"
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="age" className="block text-gray-700 font-bold mb-2">Age</label>
+            <label htmlFor="age" className="block text-gray-400 font-bold mb-2">Age</label>
             <input
               id="age"
               type="number"
               name="age"
               value={values.age}
               onChange={handleInput}
-              className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-indigo-500"
+              className="w-full px-3 py-2 text-gray-300 border border-gray-700 rounded-lg focus:outline-none focus:border-indigo-500 transition duration-300 ease-in-out transform hover:scale-105"
             />
           </div>
           <div className="flex items-center">
             <button
               type="submit"
-              className="w-40 mx-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="w-40 mx-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:scale-105"
             >
               Save Record
             </button>
             <button
               type="button"
               onClick={() => navigate('/dashboard')}
-              className="w-40 mx-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="w-40 mx-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:scale-105"
             >
               Dashboard
             </button>

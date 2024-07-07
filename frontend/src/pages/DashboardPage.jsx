@@ -1,32 +1,30 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { GithubLogo, EnvelopeSimple, WhatsappLogo } from "phosphor-react";
 
 const DashboardPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if the user is authenticated
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/login"); // Redirect to login page if not authenticated
+      navigate("/login");
     }
-  });
+  }, [navigate]);
 
   useEffect(() => {
     const handleBeforeUnload = async (event) => {
-      event.preventDefault(); // Membatalkan event default
+      event.preventDefault();
       const token = localStorage.getItem("token");
       const authType = localStorage.getItem("authType");
 
       try {
         if (authType === "google") {
-          // Logout dari Google
           const auth2 = window.gapi.auth2.getAuthInstance();
           await auth2.signOut();
         }
 
-        // Mengirim permintaan logout ke backend
         await axios.post(
           "http://localhost:3000/user/logout",
           {},
@@ -57,7 +55,6 @@ const DashboardPage = () => {
 
     try {
       if (authType === "google") {
-        // Logout dari Google
         const auth2 = window.gapi.auth2.getAuthInstance();
         await auth2.signOut();
       }
@@ -74,16 +71,43 @@ const DashboardPage = () => {
 
       localStorage.removeItem("token");
       localStorage.removeItem("authType");
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       console.error("Error logging out:", error);
     }
   };
 
+  useEffect(() => {
+    const checkTokenExpiration = async () => {
+      const token = localStorage.getItem("token");
+
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/user/check-token",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response.status !== 200) {
+          handleLogout();
+        }
+      } catch (error) {
+        handleLogout();
+      }
+    };
+
+    const interval = setInterval(checkTokenExpiration, 60000);
+
+    return () => clearInterval(interval);
+  }, [navigate]);
+
   return (
-    <div className="min-h-screen bg-sea-950 text-gray-100 flex flex-col">
-      <nav className="flex justify-between items-center bg-gray-800 p-4">
-        <h1 className="text-3xl font-bold">Dashboard</h1>
+    <div className="bg-cover bg-center bg-no-repeat min-h-screen flex flex-col items-center justify-center p-4" style={{ backgroundImage: "url('./src/img/bg5.jpg')" }}>
+      <nav className="w-full bg-gray-900 p-4 flex justify-between items-center shadow-lg">
+        <h1 className="text-3xl font-bold text-white">Dashboard</h1>
         <button
           onClick={handleLogout}
           className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
@@ -91,102 +115,50 @@ const DashboardPage = () => {
           Logout
         </button>
       </nav>
-      <div className="flex flex-col items-center justify-center flex-grow mt-8">
-        <h2 className="text-2xl mb-6">Selamat datang di Dashboard</h2>
+      <div className="flex flex-col items-center justify-center flex-grow mt-8 w-full">
+        <h2 className="text-2xl text-white mb-6">Selamat datang di Dashboard</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-4xl">
-          <div
-            className="bg-indigo-600 hover:bg-indigo-700 text-white py-6 px-4 rounded-lg shadow-lg flex flex-col items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-105"
-            onClick={() => navigate("/test")}
-          >
-            <img
-              src="./src/img/cekdiabetes.jpg"
-              alt="Create Diabetic Record"
-              className="w-35 h-35 mb-4"
-            />
-            <p className="text-xl font-bold">Create Diabetic Record</p>
-            <p className="text-sm">Bikin Rekor Gula!</p>
-          </div>
-          <div
-            className="bg-indigo-600 hover:bg-indigo-700 text-white py-6 px-4 rounded-lg shadow-lg flex flex-col items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-105"
-            onClick={() => navigate("/history-record")}
-          >
-            <img
-              src="./src/img/record.jpg"
-              alt="See My History Record"
-              className="w-35 h-35 mb-4"
-            />
-            <p className="text-xl font-bold">See My History Record</p>
-            <p className="text-sm">Liat Jejak Manis!</p>
-          </div>
-          <div
-            className="bg-indigo-600 hover:bg-indigo-700 text-white py-6 px-4 rounded-lg shadow-lg flex flex-col items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-105"
-            onClick={() => navigate("/feedback")}
-          >
-            <img
-              src="./src/img/fb.jpg"
-              alt="Feedback"
-              className="w-35 h-35 mb-4"
-            />
-            <p className="text-xl font-bold">Feedback</p>
-            <p className="text-sm">Curhat Yuk!</p>
-          </div>
-          <div
-            className="bg-indigo-600 hover:bg-indigo-700 text-white py-6 px-4 rounded-lg shadow-lg flex flex-col items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-105"
-            onClick={() => navigate("/datauser")}
-          >
-            <img
-              src="./src/img/user.jpg"
-              alt="User Data"
-              className="w-35 h-35 mb-4"
-            />
-            <p className="text-xl font-bold">User Data</p>
-            <p className="text-sm">Data Warga!</p>
-          </div>
-          <div
-            className="bg-indigo-600 hover:bg-indigo-700 text-white py-6 px-4 rounded-lg shadow-lg flex flex-col items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-105"
-            onClick={() => navigate("/blog")}
-          >
-            <img src="./src/img/fb.jpg" alt="Blog" className="w-35 h-35 mb-4" />
-            <p className="text-xl font-bold">Laman Blog</p>
-            <p className="text-sm">Masak Enak Yuk!</p>
-          </div>
-          <div
-            className="bg-indigo-600 hover:bg-indigo-700 text-white py-6 px-4 rounded-lg shadow-lg flex flex-col items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-105"
-            onClick={() => navigate("/about")}
-          >
-            <img
-              src="./src/img/user.jpg"
-              alt="User Data"
-              className="w-35 h-35 mb-4"
-            />
-            <p className="text-xl font-bold">Si Paling Pembuat</p>
-            <p className="text-sm">Tentang Web</p>
-          </div>
-          <div
-            className="bg-indigo-600 hover:bg-indigo-700 text-white py-6 px-4 rounded-lg shadow-lg flex flex-col items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-105"
-            onClick={() => navigate("/history-login")}
-          >
-            <img
-              src="./src/img/login.jpg"
-              alt="History Login"
-              className="w-35 h-35 mb-4"
-            />
-            <p className="text-xl font-bold">History Login</p>
-            <p className="text-sm">Jejak Lalu!</p>
-          </div>
+          {[
+            { id: 1, img: "cekdiabetes.jpg", title: "Create Diabetic Record", desc: "Bikin Rekor Gula!", link: "/test" },
+            { id: 2, img: "record.jpg", title: "See My History Record", desc: "Liat Jejak Manis!", link: "/history-record" },
+            { id: 3, img: "fb.jpg", title: "Feedback", desc: "Curhat Yuk!", link: "/feedback" },
+            { id: 4, img: "user.jpg", title: "User Data", desc: "Data Warga!", link: "/datauser" },
+            { id: 5, img: "masak.jpg", title: "Blog Page", desc: "Masak Enak Yuk!", link: "/blog" },
+            { id: 6, img: "about.jpg", title: "About Page", desc: "Tentang Pembuat Web", link: "/about" },
+            { id: 7, img: "login.jpg", title: "History Login", desc: "Jejak Lalu!", link: "/history-login" },
+          ].map((item) => (
+            <div
+              key={item.id}
+              className="bg-gray-800 bg-opacity-80 hover:bg-opacity-90 text-white py-6 px-4 rounded-lg shadow-lg flex flex-col items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-105"
+              onClick={() => navigate(item.link)}
+            >
+              <img
+                src={`./src/img/${item.img}`}
+                alt={item.title}
+                className="w-35 h-35 mb-4 rounded"
+              />
+              <p className="text-xl font-bold">{item.title}</p>
+              <p className="text-sm">{item.desc}</p>
+            </div>
+          ))}
         </div>
       </div>
-      <footer className="bg-gray-800 text-white p-4 mt-8">
+      <footer className="w-full bg-gray-900 text-white p-4 mt-8">
         <div className="container mx-auto text-center">
           <p className="mb-2">Created by Lucky Seven</p>
-          <div className="flex justify-center space-x-4">
+          <div className="flex justify-center mb-2">
+            <GithubLogo size={32} className="mx-2" />
+            <EnvelopeSimple size={32} className="mx-2" />
+            <WhatsappLogo size={32} className="mx-2" />
+          </div>
+          <div className="flex justify-center space-x-4 mb-2">
             <a href="https://github.com/luckyseven-ux" target="_blank" rel="noopener noreferrer" className="hover:underline">GitHub</a>
             <a href="mailto:rizkykomplek@gmail.com" className="hover:underline">Email</a>
             <a href="https://wa.me/6285890128421" target="_blank" rel="noopener noreferrer" className="hover:underline">WhatsApp</a>
           </div>
           <aside>
-    <p>Copyright © ${new Date().getFullYear()} - All right reserved by ACME Industries Ltd</p>
-  </aside>
+            <p>Copyright © {new Date().getFullYear()} - All rights reserved by ACME Industries Ltd</p>
+          </aside>
         </div>
       </footer>
     </div>

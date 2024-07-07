@@ -55,7 +55,7 @@ function LoginPage() {
     }
   };
 
-  const handleGoogleLoginSuccesss = async (credentialResponse) => {
+  const handleGoogleLoginSuccess = async (credentialResponse) => {
     try {
       const response = await axios.post('http://localhost:3000/auth/google/callback', {
         token: credentialResponse.credential,
@@ -80,16 +80,16 @@ function LoginPage() {
 
   return (
     <GoogleOAuthProvider clientId="1029364454690-gvv235i6jbdl9cv6lqq4qqjubuoo2aek.apps.googleusercontent.com">
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-slate-900 via-green-800 to-blue-900">
-        <Link className="justify-center items-center flex w-40 bg-green-600 py-2 px-3 mb-10" to="/">
+      <div className="bg-cover bg-center bg-no-repeat min-h-screen flex flex-col items-center justify-center  p-4" style={{ backgroundImage: "url('./src/img/bg3.jpg')" }}>
+        <Link className="flex justify-center items-center w-40 bg-green-600 py-2 px-3 mb-10 text-white rounded hover:bg-green-700 transition duration-300 ease-in-out transform hover:scale-105" to="/">
           Homepage
         </Link>
         <div className="w-full max-w-md">
-          <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
-            <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6">Login</h1>
+          <form className="bg-gray-800 shadow-lg rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
+            <h1 className="text-3xl font-semibold text-center text-white mb-6">Login</h1>
             {errors.username && <p className="text-red-500 mb-4">{errors.username}</p>}
             <div className="mb-4">
-              <label htmlFor="username" className="block text-gray-700 font-bold mb-2">
+              <label htmlFor="username" className="block text-gray-300 font-bold mb-2">
                 Username
               </label>
               <input
@@ -99,12 +99,12 @@ function LoginPage() {
                 value={values.username}
                 onChange={handleInput}
                 placeholder="Enter your username"
-                className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-indigo-500"
+                className="w-full px-3 py-2 text-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:border-indigo-500"
               />
             </div>
             {errors.password && <p className="text-red-500 mb-4">{errors.password}</p>}
             <div className="mb-6">
-              <label htmlFor="password" className="block text-gray-700 font-bold mb-2">
+              <label htmlFor="password" className="block text-gray-300 font-bold mb-2">
                 Password
               </label>
               <input
@@ -114,39 +114,40 @@ function LoginPage() {
                 value={values.password}
                 onChange={handleInput}
                 placeholder="Enter your password"
-                className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-indigo-500"
+                className="w-full px-3 py-2 text-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:border-indigo-500"
               />
             </div>
+            {errors.login && <p className="text-red-500 mb-4">{errors.login}</p>}
             <div className="flex items-center justify-between">
               <button
                 type="submit"
-                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:scale-105"
               >
                 Sign In
               </button>
             </div>
-            <p className="text-gray-700 text-sm px-10 mt-4">
+            <p className="text-gray-400 text-sm text-center mt-4">
               Don't have an account?{' '}
-              <Link className="text-indigo-600 hover:text-indigo-800" to="/register">
+              <Link className="text-indigo-400 hover:text-indigo-600" to="/register">
                 Register
               </Link>
             </p>
-            <p className="text-gray-700 text-sm px-10 mt-4">
+            <p className="text-gray-400 text-sm text-center mt-4">
               or {' '}
-              <Link className="text-indigo-600 hover:text-indigo-800" to="/forgot">
+              <Link className="text-indigo-400 hover:text-indigo-600" to="/forgot">
                 Forgot Password
               </Link>
             </p>
-          <div className="flex items-center justify-center mt-4">
-            <GoogleLogin
-              onSuccess={handleGoogleLoginSuccesss}
-              onError={handleGoogleLoginFailure}
+            <div className="flex items-center justify-center mt-4">
+              <GoogleLogin
+                onSuccess={handleGoogleLoginSuccess}
+                onError={handleGoogleLoginFailure}
               />
-          </div>
+            </div>
           </form>
         </div>
       </div>
-              </GoogleOAuthProvider>
+    </GoogleOAuthProvider>
   );
 }
 

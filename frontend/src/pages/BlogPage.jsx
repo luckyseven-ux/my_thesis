@@ -1,31 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const RecipePage = () => {
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-  const translateText = async (text) => {
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
+  const translateText = async (text, sourceLang = 'en', targetLang = 'id') => {
     const translateOptions = {
       method: 'POST',
-      url: 'https://google-translate113.p.rapidapi.com/api/v1/translator/text',
+      url: 'https://google-translator9.p.rapidapi.com/v2',
       headers: {
         'x-rapidapi-key': 'c1116a7479msh7a7c10e2f42b2e2p130a66jsnbc5d881fa83c',
-        'x-rapidapi-host': 'google-translate113.p.rapidapi.com',
+        'x-rapidapi-host': 'google-translator9.p.rapidapi.com',
         'Content-Type': 'application/json'
       },
       data: {
-        from: 'en',
-        to: 'id',
-        text: text
+        q: text,
+        source: 'en',
+        target: 'id',
+        format: 'text'
       }
     };
 
     try {
       const response = await axios.request(translateOptions);
       console.log('Translation response:', response.data);
-      return response.data.trans; // Adjust this according to the actual response format
+      return response.data.data.translations[0].translatedText;
     } catch (error) {
       console.error("Translation error:", error);
       return text;
@@ -38,7 +48,7 @@ const RecipePage = () => {
         method: 'GET',
         url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random',
         params: {
-          tags: 'vegetarian,dessert',
+          tags: 'main course',
           number: '1'
         },
         headers: {
@@ -90,8 +100,8 @@ const RecipePage = () => {
   }
 
   return (
-    <div className="bg-gray-900 min-h-screen p-6">
-      <div className="container mx-auto">
+    <div className="bg-cover bg-center bg-no-repeat min-h-screen flex flex-col items-center justify-center p-4" style={{ backgroundImage: "url('./src/img/bgmasak.jpg')" }}>
+      <div className="container mx-auto p-4">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-4xl font-bold text-white">Resep Acak</h1>
           <button
@@ -101,7 +111,7 @@ const RecipePage = () => {
             Kembali ke Dashboard
           </button>
         </div>
-        <div className="bg-gray-800 shadow-lg rounded-lg p-6 max-w-3xl mx-auto">
+        <div className="bg-gray-800 bg-opacity-95 shadow-lg rounded-lg p-6 max-w-3xl mx-auto">
           <h2 className="text-3xl font-semibold mb-4 text-center text-white">{recipe.title}</h2>
           {recipe.image && (
             <img
