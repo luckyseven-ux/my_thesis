@@ -100,10 +100,10 @@ const RecipePage = () => {
   }
 
   return (
-    <div className="bg-cover bg-center bg-no-repeat min-h-screen flex flex-col items-center justify-center p-4" style={{ backgroundImage: "url('./src/img/bgmasak.jpg')" }}>
+    <div className="bg-cover bg-center bg-no-repeat min-h-screen flex flex-col items-center justify-center p-4" style={{ backgroundImage: "url('./src/img/bg5.jpg')" }}>
       <div className="container mx-auto p-4">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-4xl font-bold text-white">Resep Acak</h1>
+          <h1 className="text-4xl font-bold text-gray-600">Resep Acak</h1>
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
             onClick={() => window.location.href = '/dashboard'}
@@ -111,8 +111,8 @@ const RecipePage = () => {
             Kembali ke Dashboard
           </button>
         </div>
-        <div className="bg-gray-800 bg-opacity-95 shadow-lg rounded-lg p-6 max-w-3xl mx-auto">
-          <h2 className="text-3xl font-semibold mb-4 text-center text-white">{recipe.title}</h2>
+        <div className="bg-green-300 bg-opacity-95 shadow-lg rounded-lg p-6 max-w-3xl mx-auto">
+          <h2 className="text-3xl font-semibold mb-4 text-center text-gray-500">{recipe.title}</h2>
           {recipe.image && (
             <img
               src={recipe.image}
@@ -122,16 +122,16 @@ const RecipePage = () => {
           )}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h3 className="text-xl font-semibold mb-2 text-white">Bahan-bahan</h3>
-              <ul className="list-disc list-inside space-y-1 text-white">
+              <h3 className="text-xl font-semibold mb-2 text-gray-500">Bahan-bahan</h3>
+              <ul className="list-disc list-inside space-y-1 text-gray-500">
                 {recipe.extendedIngredients.map((ingredient, index) => (
                   <li key={`${ingredient.id}-${index}`}>{ingredient.original}</li>
                 ))}
               </ul>
             </div>
             <div>
-              <h3 className="text-xl font-semibold mb-2 text-white">Instruksi</h3>
-              <div className="prose text-white">
+              <h3 className="text-xl font-semibold mb-2 text-gray-500">Instruksi</h3>
+              <div className="prose text-gray-500">
                 {recipe.instructions ? (
                   <div dangerouslySetInnerHTML={{ __html: recipe.instructions }} />
                 ) : (

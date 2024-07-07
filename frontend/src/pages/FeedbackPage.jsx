@@ -82,13 +82,13 @@ const FeedbackPage = () => {
     };
   }, []);
   return (
-    <div className="min-h-screen bg-sea-950 text-gray-100 flex items-center justify-center">
-      <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-3xl font-bold mb-4">Submit Your Feedback</h1>
+    <div className="bg-cover bg-center bg-no-repeat min-h-screen flex flex-col items-center justify-center  p-4" style={{ backgroundImage: "url('./src/img/bg.jpg')" }}>
+      <div className="bg-emerald-500 p-8 rounded-xl shadow-xl w-full max-w-md">
+        <h1 className="text-4xl font-bold mb-6 text-center text-white">Submit Your Feedback</h1>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
+          <div className="mb-6">
             <textarea
-              className="w-full p-2 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              className="w-full p-3 bg-white rounded-lg text-black focus:outline-none focus:ring-4 focus:ring-green-500"
               rows="5"
               placeholder="Write your feedback here..."
               value={feedback}
@@ -97,16 +97,16 @@ const FeedbackPage = () => {
           </div>
           <button
             type="submit"
-            className="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
+            className="w-full py-3 bg-green-400 hover:bg-emerald-600 text-gray-600 rounded-lg focus:outline-none focus:ring-4 focus:ring-green-500"
           >
             Submit Feedback
           </button>
         </form>
-        {successMessage && <p className="text-green-500 mt-4">{successMessage}</p>}
-        {errorMessage && <p className="text-red-500 mt-4">{errorMessage}</p>}
+        {successMessage && <p className="text-green-400 mt-4 text-center">{successMessage}</p>}
+        {errorMessage && <p className="text-red-400 mt-4 text-center">{errorMessage}</p>}
         <button
           onClick={() => navigate('/dashboard')}
-          className="mt-4 w-full py-2 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
+          className="mt-6 w-full py-3 bg-sky-500 text-white rounded-lg hover:bg-sky-600 focus:outline-none focus:ring-4 focus:ring-green-500"
         >
           Back to Dashboard
         </button>

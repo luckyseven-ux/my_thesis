@@ -104,82 +104,82 @@ function TestRecordPage() {
   }, []);
   
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 via-purple-900 to-black animate-gradient-x">
-      <div className="w-full max-w-md bg-gradient-to-b from-gray-800 to-gray-900 rounded-lg shadow-lg p-8">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('./src/img/bg10.jpg')" }}>
+      <div className="w-full max-w-md bg-green-400 bg-opacity-90 rounded-lg shadow-lg p-8">
         <form onSubmit={handleSubmit}>
-          <h1 className="text-3xl font-semibold text-center text-white mb-6">Add Record</h1>
-          {message && <p className="text-green-400 mb-4">{message}</p>}
+          <h1 className="text-3xl font-semibold text-center text-green-900 mb-6">Add Record</h1>
+          {message && <p className="text-green-500 mb-4">{message}</p>}
           {Object.keys(errors).map((key) => (
-            <p key={key} className="text-red-400 mb-4">{errors[key]}</p>
+            <p key={key} className="text-red-500 mb-4">{errors[key]}</p>
           ))}
           <div className="mb-4">
-            <label htmlFor="name" className="block text-gray-400 font-bold mb-2">Name</label>
+            <label htmlFor="name" className="block text-green-900 font-bold mb-2">Name</label>
             <input
               id="name"
               type="text"
               name="name"
               value={values.name}
               onChange={handleInput}
-              className="w-full px-3 py-2 text-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500"
+              className="w-full px-3 py-2 text-green-900 border border-green-500 rounded-lg focus:outline-none focus:border-green-700"
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="pregnancies" className="block text-gray-400 font-bold mb-2">Pregnancies</label>
+            <label htmlFor="pregnancies" className="block text-green-900 font-bold mb-2">Pregnancies</label>
             <input
               id="pregnancies"
               type="number"
               name="pregnancies"
               value={values.pregnancies}
               onChange={handleInput}
-              className="w-full px-3 py-2 text-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500"
+              className="w-full px-3 py-2 text-green-900 border border-green-500 rounded-lg focus:outline-none focus:border-green-700"
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="glucose" className="block text-gray-400 font-bold mb-2">Glucose</label>
+            <label htmlFor="glucose" className="block text-green-900 font-bold mb-2">Glucose</label>
             <input
               id="glucose"
               type="number"
               name="glucose"
               value={values.glucose}
               onChange={handleInput}
-              className="w-full px-3 py-2 text-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500"
+              className="w-full px-3 py-2 text-green-900 border border-green-500 rounded-lg focus:outline-none focus:border-green-700"
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="blood_pressure" className="block text-gray-400 font-bold mb-2">Blood Pressure</label>
+            <label htmlFor="blood_pressure" className="block text-green-900 font-bold mb-2">Blood Pressure</label>
             <input
               id="blood_pressure"
               type="number"
               name="blood_pressure"
               value={values.blood_pressure}
               onChange={handleInput}
-              className="w-full px-3 py-2 text-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500"
+              className="w-full px-3 py-2 text-green-900 border border-green-500 rounded-lg focus:outline-none focus:border-green-700"
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="skin_thickness" className="block text-gray-400 font-bold mb-2">Skin Thickness</label>
+            <label htmlFor="skin_thickness" className="block text-green-900 font-bold mb-2">Skin Thickness</label>
             <input
               id="skin_thickness"
               type="number"
               name="skin_thickness"
               value={values.skin_thickness}
               onChange={handleInput}
-              className="w-full px-3 py-2 text-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500"
+              className="w-full px-3 py-2 text-green-900 border border-green-500 rounded-lg focus:outline-none focus:border-green-700"
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="insulin" className="block text-gray-400 font-bold mb-2">Insulin</label>
+            <label htmlFor="insulin" className="block text-green-900 font-bold mb-2">Insulin</label>
             <input
               id="insulin"
               type="number"
               name="insulin"
               value={values.insulin}
               onChange={handleInput}
-              className="w-full px-3 py-2 text-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500"
+              className="w-full px-3 py-2 text-green-900 border border-green-500 rounded-lg focus:outline-none focus:border-green-700"
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="bmi" className="block text-gray-400 font-bold mb-2">BMI</label>
+            <label htmlFor="bmi" className="block text-green-900 font-bold mb-2">BMI</label>
             <input
               id="bmi"
               type="number"
@@ -187,11 +187,11 @@ function TestRecordPage() {
               name="bmi"
               value={values.bmi}
               onChange={handleInput}
-              className="w-full px-3 py-2 text-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500"
+              className="w-full px-3 py-2 text-green-900 border border-green-500 rounded-lg focus:outline-none focus:border-green-700"
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="diabetes_pedigree_function" className="block text-gray-400 font-bold mb-2">Diabetes Pedigree Function</label>
+            <label htmlFor="diabetes_pedigree_function" className="block text-green-900 font-bold mb-2">Diabetes Pedigree Function</label>
             <input
               id="diabetes_pedigree_function"
               type="number"
@@ -199,37 +199,39 @@ function TestRecordPage() {
               name="diabetes_pedigree_function"
               value={values.diabetes_pedigree_function}
               onChange={handleInput}
-              className="w-full px-3 py-2 text-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500"
+              className="w-full px-3 py-2 text-green-900 border border-green-500 rounded-lg focus:outline-none focus:border-green-700"
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="age" className="block text-gray-400 font-bold mb-2">Age</label>
+            <label htmlFor="age" className="block text-green-900 font-bold mb-2">Age</label>
             <input
               id="age"
               type="number"
               name="age"
               value={values.age}
               onChange={handleInput}
-              className="w-full px-3 py-2 text-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500"
+              className="w-full px-3 py-2 text-green-900 border border-green-500 rounded-lg focus:outline-none focus:border-green-700"
             />
           </div>
           <div className="flex items-center justify-center mt-6 space-x-4">
             <button
               type="submit"
-              className="w-40 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transform transition duration-300 hover:scale-105"
+              className="w-40 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transform transition duration-300 hover:scale-105"
             >
               Save Record
             </button>
             <button
               type="button"
               onClick={() => navigate('/dashboard')}
-              className="w-40 bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transform transition duration-300 hover:scale-105">
-              Back to Dashboard   
-              </button>
-              </div>
-              </form>
-              </div>
-              </div>
-  )}
+              className="w-40 bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transform transition duration-300 hover:scale-105"
+            >
+              Back to Dashboard
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
 
 export default TestRecordPage;

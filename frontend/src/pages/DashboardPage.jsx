@@ -105,8 +105,8 @@ const DashboardPage = () => {
   }, [navigate]);
 
   return (
-    <div className="bg-cover bg-center bg-no-repeat min-h-screen flex flex-col items-center justify-center p-4" style={{ backgroundImage: "url('./src/img/bg5.jpg')" }}>
-      <nav className="w-full bg-gray-900 p-4 flex justify-between items-center shadow-lg">
+    <div className="bg-cover bg-center bg-no-repeat min-h-screen flex flex-col items-center justify-center  p-4" style={{ backgroundImage: "url('./src/img/bg8.jpg')" }}>
+       <nav className="w-full bg-green-600 p-4 flex justify-between items-center shadow-lg">
         <h1 className="text-3xl font-bold text-white">Dashboard</h1>
         <button
           onClick={handleLogout}
@@ -116,34 +116,30 @@ const DashboardPage = () => {
         </button>
       </nav>
       <div className="flex flex-col items-center justify-center flex-grow mt-8 w-full">
-        <h2 className="text-2xl text-white mb-6">Selamat datang di Dashboard</h2>
+        <h2 className="text-2xl text-green-900 mb-6">Selamat datang di Dashboard</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-4xl">
           {[
-            { id: 1, img: "cekdiabetes.jpg", title: "Create Diabetic Record", desc: "Bikin Rekor Gula!", link: "/test" },
-            { id: 2, img: "record.jpg", title: "See My History Record", desc: "Liat Jejak Manis!", link: "/history-record" },
-            { id: 3, img: "fb.jpg", title: "Feedback", desc: "Curhat Yuk!", link: "/feedback" },
-            { id: 4, img: "user.jpg", title: "User Data", desc: "Data Warga!", link: "/datauser" },
-            { id: 5, img: "masak.jpg", title: "Blog Page", desc: "Masak Enak Yuk!", link: "/blog" },
-            { id: 6, img: "about.jpg", title: "About Page", desc: "Tentang Pembuat Web", link: "/about" },
-            { id: 7, img: "login.jpg", title: "History Login", desc: "Jejak Lalu!", link: "/history-login" },
+            { id: 1, icon: '📋', title: "Create Diabetic Record", desc: "Buat catatan diabetes baru dan pantau kesehatan Anda dengan mudah.", link: "/test" },
+            { id: 2, icon: '📜', title: "See My History Record", desc: "Lihat riwayat catatan diabetes Anda dan pelajari tren kesehatan Anda.", link: "/history-record" },
+            { id: 3, icon: '💬', title: "Feedback", desc: "Berikan masukan Anda tentang aplikasi ini dan bantu kami meningkatkan layanan.", link: "/feedback" },
+            { id: 4, icon: '👥', title: "User Data", desc: "Akses dan kelola data pengguna untuk pengelolaan yang lebih baik.", link: "/datauser" },
+            { id: 5, icon: '🍴', title: "Healthy Recipes", desc: "Temukan resep masakan sehat yang lezat dan bergizi di blog kami.", link: "/blog" },
+            { id: 6, icon: 'ℹ️', title: "About Page", desc: "Pelajari lebih lanjut tentang pengembang dan tujuan dari aplikasi ini.", link: "/about" },
+            { id: 7, icon: '🔒', title: "History Login", desc: "Lihat riwayat login Anda untuk keamanan dan pemantauan.", link: "/history-login" },
           ].map((item) => (
             <div
               key={item.id}
-              className="bg-gray-800 bg-opacity-80 hover:bg-opacity-90 text-white py-6 px-4 rounded-lg shadow-lg flex flex-col items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-105"
+              className="bg-green-500 hover:bg-green-600 text-white py-6 px-4 rounded-lg shadow-lg flex flex-col items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-105"
               onClick={() => navigate(item.link)}
             >
-              <img
-                src={`./src/img/${item.img}`}
-                alt={item.title}
-                className="w-35 h-35 mb-4 rounded"
-              />
+              <div className="text-4xl mb-4">{item.icon}</div>
               <p className="text-xl font-bold">{item.title}</p>
-              <p className="text-sm">{item.desc}</p>
+              <p className="text-sm text-center">{item.desc}</p>
             </div>
           ))}
         </div>
       </div>
-      <footer className="w-full bg-gray-900 text-white p-4 mt-8">
+      <footer className="w-full bg-green-600 text-white p-4 mt-8">
         <div className="container mx-auto text-center">
           <p className="mb-2">Created by Lucky Seven</p>
           <div className="flex justify-center mb-2">

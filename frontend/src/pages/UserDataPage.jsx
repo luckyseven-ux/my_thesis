@@ -44,8 +44,8 @@ const UserDataPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-sea-950 text-gray-100 flex items-center justify-center">
-      <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
+    <div className="bg-cover bg-center bg-no-repeat min-h-screen flex flex-col items-center justify-center  p-4" style={{ backgroundImage: "url('./src/img/bg2.jpg')" }}>
+      <div className="bg-green-300 p-8 rounded-lg shadow-lg w-full max-w-md">
         <h1 className="text-3xl font-bold mb-4">User Data</h1>
         <div className="mb-4">
           <p className="mb-2"><span className="font-semibold">ID:</span> {userData.id}</p>
@@ -54,7 +54,7 @@ const UserDataPage = () => {
         </div>
         <button
           onClick={() => navigate('/dashboard')}
-          className="w-full py-2 mt-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
+          className="w-full py-2 mt-4 bg-sky-400 hover:bg-sky-700 text-white rounded focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
         >
           Back to Dashboard
         </button>

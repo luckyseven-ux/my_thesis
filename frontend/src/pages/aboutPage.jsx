@@ -45,36 +45,36 @@ function aboutPage() {
         };
       }, []);
   return (
-    <div className="min-h-screen bg-sea-950 text-gray-100 flex flex-col items-center justify-center p-8">
-    <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-4xl">
-      <h1 className="text-4xl font-bold mb-6">About Us</h1>
-      <p className="mb-4">
-        Welcome to our platform! We are dedicated to providing you with the best service possible. Our team works tirelessly to ensure that your experience is seamless, efficient, and enjoyable.
-      </p>
-      <p className="mb-4">
-        Our mission is to empower individuals and organizations through innovative solutions. We believe in the power of technology to transform lives and create opportunities. Whether you are looking to manage your tasks, track your progress, or collaborate with others, we have the tools you need.
-      </p>
-      <p className="mb-4">
-        Founded in [Year], our company has grown from a small startup to a leader in the industry. We owe our success to our dedicated team and our loyal customers. Your feedback and support drive us to constantly improve and innovate.
-      </p>
-      <p className="mb-4">
-        Thank you for choosing our platform. We are committed to your success and are here to support you every step of the way. If you have any questions, suggestions, or feedback, please don't hesitate to reach out to us.
-      </p>
-      <p className="mb-4">
-        Together, let's create something amazing!
-      </p>
-      <div className="flex justify-center mt-6">
-        <button
-          onClick={() => navigate('/dashboard')}
-          className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
-        >
-          Back to Dashboard
-        </button>
+    <div className="min-h-screen bg-cover bg-center bg-no-repeat text-gray-900 flex flex-col items-center justify-center p-8" style={{ backgroundImage: "url('./src/img/bg2.jpg')" }}>
+      <div className="bg-emerald-500 p-8 rounded-lg shadow-lg w-full max-w-4xl bg-opacity-90">
+  <h1 className="text-4xl font-bold mb-6 text-white">Tentang Kami</h1>
+  <p className="mb-4 text-white">
+    Selamat datang di platform kami! Kami berdedikasi untuk memberikan pelayanan terbaik untuk Anda. Tim kami bekerja tanpa kenal lelah untuk memastikan pengalaman Anda mulus, efisien, dan menyenangkan.
+  </p>
+  <p className="mb-4 text-white">
+    Misi kami adalah memberdayakan individu dan organisasi melalui solusi inovatif. Kami percaya pada kekuatan teknologi untuk mengubah hidup dan menciptakan peluang. Apapun kebutuhan Anda, baik itu mengelola tugas, melacak kemajuan, atau berkolaborasi dengan orang lain, kami memiliki alat yang Anda butuhkan.
+  </p>
+  <p className="mb-4 text-white">
+    Didirikan pada tahun [Tahun], perusahaan kami telah berkembang dari sebuah startup kecil menjadi pemimpin di industri ini. Kesuksesan kami berkat tim yang berdedikasi dan pelanggan setia kami. Masukan dan dukungan Anda mendorong kami untuk terus meningkatkan dan berinovasi.
+  </p>
+  <p className="mb-4 text-white">
+    Terima kasih telah memilih platform kami. Kami berkomitmen untuk kesuksesan Anda dan siap mendukung Anda di setiap langkah. Jika Anda memiliki pertanyaan, saran, atau masukan, jangan ragu untuk menghubungi kami.
+  </p>
+  <p className="mb-4 text-white">
+    Bersama-sama, mari kita ciptakan sesuatu yang luar biasa!
+  </p>
+
+        <div className="flex justify-center mt-6">
+          <button
+            onClick={() => navigate('/dashboard')}
+            className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
+          >
+            Back to Dashboard
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-);
-  
-}
+  );
+};
 
 export default aboutPage

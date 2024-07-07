@@ -30,50 +30,48 @@ const ResetPasswordPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center  bg-gradient-to-r from-slate-900 via-green-800 to-blue-900">
-      <div className="p-8 bg-gray-700 shadow-lg rounded-lg w-full max-w-md">
-        <h1 className="text-2xl text-white font-bold mb-4 text-center">Reset Password</h1>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-green-200 to-white">
+      <div className="p-8 bg-white bg-opacity-80 shadow-2xl rounded-3xl w-full max-w-md transform transition duration-500 hover:scale-105">
+        <h1 className="text-3xl text-green-800 font-bold mb-6 text-center">Reset Password</h1>
         {message && <p className="text-center text-red-500 mb-4">{message}</p>}
         <form onSubmit={handleSubmit}>
-          
           <div className="mb-4">
-            <label htmlFor="password" className="block text-white">New Password:</label>
+            <label htmlFor="password" className="block text-gray-700">New Password:</label>
             <input
               id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:border-indigo-500"
+              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-4 focus:ring-green-300 transition duration-300"
               required
             />
           </div>
           <div className="mb-6">
-            <label htmlFor="confirmPassword" className="block text-white">Confirm Password:</label>
+            <label htmlFor="confirmPassword" className="block text-gray-700">Confirm Password:</label>
             <input
               id="confirmPassword"
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:border-indigo-500"
+              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-4 focus:ring-green-300 transition duration-300"
               required
             />
           </div>
-          <div className="flex items-center justify-between">
-            <button
-              type="submit"
-              className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-              Reset Password
-            </button>
-            <p className="text-white text-sm px-10 mt-4">
-            Kembali Ke {' '}
-            <Link className="text-indigo-600 hover:text-indigo-800" to="/login">
+          <button
+            type="submit"
+            className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:ring-4 focus:ring-green-300 transition duration-300"
+          >
+            Reset Password
+          </button>
+        </form>
+        <div className="text-center mt-4">
+          <p className="text-gray-700 text-sm">
+            Kembali ke{' '}
+            <Link className="text-green-500 hover:text-green-700" to="/login">
               Login
             </Link>
           </p>
-          </div>
-          
-        </form>
+        </div>
       </div>
     </div>
   );
