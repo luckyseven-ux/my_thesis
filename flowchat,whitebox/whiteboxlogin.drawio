@@ -1,0 +1,79 @@
+<mxfile host="app.diagrams.net" modified="2024-07-10T10:40:27.274Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="ujVtkgKudNuB7fvNtEMP" version="24.6.4" type="device">
+  <diagram name="Page-1" id="TbTFKm__2YyOvWIT1WuD">
+    <mxGraphModel dx="954" dy="638" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="NzhI3UWQht6o8jug8BFg-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="2r6t3OLS04NrNTJb4mnr-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="550" y="80" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2r6t3OLS04NrNTJb4mnr-1" value="Registrasi Akun" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="410" y="65" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="NzhI3UWQht6o8jug8BFg-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="2r6t3OLS04NrNTJb4mnr-2" target="NzhI3UWQht6o8jug8BFg-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NzhI3UWQht6o8jug8BFg-6" value="Sudah" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="NzhI3UWQht6o8jug8BFg-2">
+          <mxGeometry x="-0.16" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NzhI3UWQht6o8jug8BFg-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="2r6t3OLS04NrNTJb4mnr-2" target="2r6t3OLS04NrNTJb4mnr-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NzhI3UWQht6o8jug8BFg-5" value="Belum" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="NzhI3UWQht6o8jug8BFg-4">
+          <mxGeometry x="-0.32" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2r6t3OLS04NrNTJb4mnr-2" value="kepemilikan Akun" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="220" y="20" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="NzhI3UWQht6o8jug8BFg-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="NzhI3UWQht6o8jug8BFg-1" target="NzhI3UWQht6o8jug8BFg-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NzhI3UWQht6o8jug8BFg-1" value="Login ke Dashboard" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="220" y="190" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="NzhI3UWQht6o8jug8BFg-9" value="meyimpan akun kedatabase" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="550" y="65" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="NzhI3UWQht6o8jug8BFg-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="NzhI3UWQht6o8jug8BFg-10" target="NzhI3UWQht6o8jug8BFg-16">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="390" y="285" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NzhI3UWQht6o8jug8BFg-13" value="Tidak" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="NzhI3UWQht6o8jug8BFg-12">
+          <mxGeometry x="-0.5115" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NzhI3UWQht6o8jug8BFg-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.458;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="NzhI3UWQht6o8jug8BFg-10" target="NzhI3UWQht6o8jug8BFg-17">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="290" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NzhI3UWQht6o8jug8BFg-10" value="validasi akun ke database" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="225" y="250" width="110" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="NzhI3UWQht6o8jug8BFg-16" value="Username atau Password Salah" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="414" y="290" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="NzhI3UWQht6o8jug8BFg-17" value="Masuk Ke laman Dashboard" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="225" y="400" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="NzhI3UWQht6o8jug8BFg-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="NzhI3UWQht6o8jug8BFg-19" target="NzhI3UWQht6o8jug8BFg-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NzhI3UWQht6o8jug8BFg-19" value="Dalam Waktu 60 menit Masa Berlaku Token Habis, Otomatis Logout" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="330" width="130" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="NzhI3UWQht6o8jug8BFg-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.454;entryY=1.05;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="NzhI3UWQht6o8jug8BFg-17" target="NzhI3UWQht6o8jug8BFg-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

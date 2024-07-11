@@ -48,7 +48,7 @@ const RecipePage = () => {
         method: 'GET',
         url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random',
         params: {
-          tags: 'main course',
+          tags: 'main course , Healthy',
           number: '1'
         },
         headers: {

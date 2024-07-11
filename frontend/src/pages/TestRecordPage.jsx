@@ -108,10 +108,6 @@ function TestRecordPage() {
       <div className="w-full max-w-md bg-green-400 bg-opacity-90 rounded-lg shadow-lg p-8">
         <form onSubmit={handleSubmit}>
           <h1 className="text-3xl font-semibold text-center text-green-900 mb-6">Add Record</h1>
-          {message && <p className="text-green-500 mb-4">{message}</p>}
-          {Object.keys(errors).map((key) => (
-            <p key={key} className="text-red-500 mb-4">{errors[key]}</p>
-          ))}
           <div className="mb-4">
             <label htmlFor="name" className="block text-green-900 font-bold mb-2">Name</label>
             <input
@@ -121,7 +117,7 @@ function TestRecordPage() {
               value={values.name}
               onChange={handleInput}
               className="w-full px-3 py-2 text-green-900 border border-green-500 rounded-lg focus:outline-none focus:border-green-700"
-            />
+              />
           </div>
           <div className="mb-4">
             <label htmlFor="pregnancies" className="block text-green-900 font-bold mb-2">Pregnancies</label>
@@ -132,7 +128,7 @@ function TestRecordPage() {
               value={values.pregnancies}
               onChange={handleInput}
               className="w-full px-3 py-2 text-green-900 border border-green-500 rounded-lg focus:outline-none focus:border-green-700"
-            />
+              />
           </div>
           <div className="mb-4">
             <label htmlFor="glucose" className="block text-green-900 font-bold mb-2">Glucose</label>
@@ -143,7 +139,7 @@ function TestRecordPage() {
               value={values.glucose}
               onChange={handleInput}
               className="w-full px-3 py-2 text-green-900 border border-green-500 rounded-lg focus:outline-none focus:border-green-700"
-            />
+              />
           </div>
           <div className="mb-4">
             <label htmlFor="blood_pressure" className="block text-green-900 font-bold mb-2">Blood Pressure</label>
@@ -154,7 +150,7 @@ function TestRecordPage() {
               value={values.blood_pressure}
               onChange={handleInput}
               className="w-full px-3 py-2 text-green-900 border border-green-500 rounded-lg focus:outline-none focus:border-green-700"
-            />
+              />
           </div>
           <div className="mb-4">
             <label htmlFor="skin_thickness" className="block text-green-900 font-bold mb-2">Skin Thickness</label>
@@ -165,7 +161,7 @@ function TestRecordPage() {
               value={values.skin_thickness}
               onChange={handleInput}
               className="w-full px-3 py-2 text-green-900 border border-green-500 rounded-lg focus:outline-none focus:border-green-700"
-            />
+              />
           </div>
           <div className="mb-4">
             <label htmlFor="insulin" className="block text-green-900 font-bold mb-2">Insulin</label>
@@ -176,7 +172,7 @@ function TestRecordPage() {
               value={values.insulin}
               onChange={handleInput}
               className="w-full px-3 py-2 text-green-900 border border-green-500 rounded-lg focus:outline-none focus:border-green-700"
-            />
+              />
           </div>
           <div className="mb-4">
             <label htmlFor="bmi" className="block text-green-900 font-bold mb-2">BMI</label>
@@ -188,7 +184,7 @@ function TestRecordPage() {
               value={values.bmi}
               onChange={handleInput}
               className="w-full px-3 py-2 text-green-900 border border-green-500 rounded-lg focus:outline-none focus:border-green-700"
-            />
+              />
           </div>
           <div className="mb-4">
             <label htmlFor="diabetes_pedigree_function" className="block text-green-900 font-bold mb-2">Diabetes Pedigree Function</label>
@@ -211,20 +207,24 @@ function TestRecordPage() {
               value={values.age}
               onChange={handleInput}
               className="w-full px-3 py-2 text-green-900 border border-green-500 rounded-lg focus:outline-none focus:border-green-700"
-            />
+              />
           </div>
+            {message && <p className="text-green-900 mb-4 justify-center flex flex-col">{message}</p>}
+            {Object.keys(errors).map((key) => (
+              <p key={key} className="text-red-500 mb-4">{errors[key]}</p>
+            ))}
           <div className="flex items-center justify-center mt-6 space-x-4">
             <button
               type="submit"
               className="w-40 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transform transition duration-300 hover:scale-105"
-            >
-              Save Record
+              >
+              Calculate
             </button>
             <button
               type="button"
               onClick={() => navigate('/dashboard')}
               className="w-40 bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transform transition duration-300 hover:scale-105"
-            >
+              >
               Back to Dashboard
             </button>
           </div>
