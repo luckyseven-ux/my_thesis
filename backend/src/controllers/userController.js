@@ -83,7 +83,7 @@ export const login = async (req, res) => {
     // Set cookie
     res.cookie('username', user.username, { httpOnly: true });
     console.log(`your token ${token}`);
-    
+
     // Kirim token ke server Flask
     try {
       await fetch('http://localhost:5000/token', {
@@ -156,10 +156,12 @@ export const forgotPassword = async (req, res) => {
       to: email,
       from: process.env.EMAIL,
       subject: 'Password Reset',
-      text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n` +
-            `Please click on the following link, or paste this into your browser to complete the process:\n\n` +
-            `http://localhost:5173/reset/${token}\n\n` +
-            `If you did not request this, please ignore this email and your password will remain unchanged.\n`,
+      text: `Anda menerima pesan ini karena Anda (atau orang lain) telah meminta pengaturan ulang kata sandi untuk akun Anda.\n\n` +
+
+        `Silakan klik tautan berikut, atau tempelkan ke browser Anda untuk menyelesaikan prosesnya:\n\n` +
+        `http://localhost:5173/reset/${token} \n\n` +
+
+        `Jika Anda tidak meminta ini, abaikan email ini dan kata sandi Anda akan tetap tidak berubah atau demi keamanan ubah kata sandi anda.`
     };
 
     await transporter.sendMail(mailOptions);

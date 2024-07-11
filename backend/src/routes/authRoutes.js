@@ -1,5 +1,5 @@
 import express from 'express';
-import { gauth_callback, logout_google, post_gauth_callback } from '../controllers/authController.js';
+import { gauth_callback, googleSessionHistory, logout_google, post_gauth_callback } from '../controllers/authController.js';
 import { google } from 'googleapis';
 import { authenticateJWT } from '../middleware/auth.js';
 const router = express.Router();
@@ -28,6 +28,7 @@ router.get('/google', (req, res) => {
 router.get('/google/callback', gauth_callback);
 router.post('/google/callback', post_gauth_callback);
 router.post('/google/logout', authenticateJWT,logout_google);
+router.get('/google/sessions', authenticateJWT,googleSessionHistory);
 
 
 

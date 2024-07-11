@@ -84,6 +84,19 @@ export const post_gauth_callback = async (req, res) => {
 
     // Save user session in req.session
     req.session.user = user;
+    console.log(`ur token :${jwtToken}`)
+    try {
+      await fetch('http://localhost:5000/token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ token: jwtToken })
+      });
+    } catch (fetchError) {
+      console.error('Error sending token to Flask:', fetchError);
+      // Tambahkan logika penanganan error jika diperlukan, namun tidak mengirim respons kedua
+    }
 
     // Respond with user information and JWT token
     res.json({ user, token: jwtToken });
@@ -146,3 +159,14 @@ export const deleteUser = async (req, res) => {
 };
 
 
+export const googleSessionHistory = async (req, res) => {
+  try {
+    const { email } = req.user; // Pastikan Anda menggunakan middleware autentikasi untuk menyetel req.user
+    console.log('User email:', email);
+    const [sessions] = await db.query('SELECT login_time, logout_time FROM user_sessions WHERE username = ?', [email]);
+
+    res.json({ sessions });
+  } catch (err) {
+    res.status(500).json({ message: 'Database error', error: err.message });
+  }
+};
