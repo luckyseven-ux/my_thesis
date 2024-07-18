@@ -34,7 +34,7 @@ app.use(session({
   secret: '$buncit&12345',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: process.env.NODE_ENV === 'production', maxAge: 900000 },
+  cookie: { secure: process.env.NODE_ENV === 'production', maxAge: 3600000 }, // 1 hour
 }));
 
 // Routes

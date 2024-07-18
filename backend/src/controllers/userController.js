@@ -2,9 +2,8 @@ import { db } from '../database/db.js';
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import crypto from 'crypto'
-
 import nodemailer from 'nodemailer'
-import { sub } from '@tensorflow/tfjs';
+
 
 export const listUsers = async (req, res) => {
   const userId = req.user.userId;
