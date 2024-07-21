@@ -6,17 +6,39 @@ const FeedbackPage = () => {
   const [feedback, setFeedback] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(true)
   const navigate = useNavigate();
-
-
-
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/login");
+      navigate("/login"); // Redirect to login page if not authenticated
+    } else {
+      // Verify token with the backend
+      axios.get("http://localhost:3000/user/check-token", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(response => {
+        if (response.status === 200) {
+          setIsAuthenticated(true);
+        } else {
+          navigate("/login");
+        }
+      })
+      .catch(error => {
+        navigate("/login");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
     }
   }, [navigate]);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();

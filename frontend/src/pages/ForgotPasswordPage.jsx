@@ -14,7 +14,7 @@ const ForgotPasswordPage = () => {
       setMessage(response.data.message);
     } catch (error) {
       console.error('Error sending reset password email:', error);
-      setMessage('Error sending reset password email');
+      setMessage('Error invalid email');
     }
   };
 

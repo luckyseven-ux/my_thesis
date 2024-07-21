@@ -1,16 +1,39 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 function aboutPage() {
     const navigate = useNavigate()
+    const [isLoading, setIsLoading] = useState(true)
 
-    
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login");
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/login"); // Redirect to login page if not authenticated
+      } else {
+        // Verify token with the backend
+        axios.get("http://localhost:3000/user/check-token", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(response => {
+          if (response.status === 200) {
+            setIsAuthenticated(true);
+          } else {
+            navigate("/login");
+          }
+        })
+        .catch(error => {
+          navigate("/login");
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+      }
+    }, [navigate]);
+    if (isLoading) {
+      return <div>Loading...</div>;
     }
-  }, [navigate]);
+  
     useEffect(() => {
         const handleBeforeUnload = async (event) => {
           event.preventDefault(); // Membatalkan event default

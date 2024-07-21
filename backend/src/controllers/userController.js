@@ -81,8 +81,7 @@ export const login = async (req, res) => {
 
     // Set cookie
     res.cookie('username', user.username, { httpOnly: true });
-    console.log(`your token ${token}`);
-
+    
     // Kirim token ke server Flask
     try {
       await fetch('http://localhost:5000/token', {

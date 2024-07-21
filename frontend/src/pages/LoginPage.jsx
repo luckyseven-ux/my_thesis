@@ -11,6 +11,8 @@ function LoginPage() {
     setValues((prev) => ({ ...prev, [event.target.name]: event.target.value }));
   };
 
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const { username, password } = values;
@@ -27,18 +29,16 @@ function LoginPage() {
     // Jika tidak ada kesalahan, lanjutkan dengan logika login
     if (Object.keys(errors).length === 0) {
       try {
-        const response = await fetch('http://localhost:3000/user/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password }),
+        const response = await axios.post('http://localhost:3000/user/login', {
+          username,
+          password
         });
-        const data = await response.json();
-        
+
         // Log untuk memeriksa respons dari server
-        console.log('Login response:', data);
+        console.log('Login response:', response.data);
         
         if (response.status === 200) {
-          const { token, user_id } = data;  // Mengambil dari data, bukan response.data
+          const { token, user_id } = response.data;  // Mengambil dari response.data
           localStorage.setItem('token', token);
           localStorage.setItem('user_id', user_id);
           navigate('/dashboard');
@@ -47,7 +47,11 @@ function LoginPage() {
         }
       } catch (error) {
         console.error('Login error:', error);
-        setErrors({ login: 'An error occurred. Please try again.' });  // Set kesalahan jaringan ke state errors
+        if (error.response && error.response.status === 401) {
+          setErrors({ login: 'Invalid username or password' });
+        } else {
+          setErrors({ login: 'An error occurred. Please try again.' });  // Set kesalahan jaringan ke state errors
+        }
       }
     } else {
       setErrors(errors);  // Set kesalahan validasi ke state errors

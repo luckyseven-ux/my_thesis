@@ -17,16 +17,37 @@ function TestRecordPage() {
 
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState({});
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login"); // Redirect to login page if not authenticated
+    } else {
+      // Verify token with the backend
+      axios.get("http://localhost:3000/user/check-token", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(response => {
+        if (response.status === 200) {
+          setIsAuthenticated(true);
+        } else {
+          navigate("/login");
+        }
+      })
+      .catch(error => {
+        navigate("/login");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
     }
   }, [navigate]);
 
-  
   const handleInput = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
@@ -34,7 +55,7 @@ function TestRecordPage() {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("token"); // Assuming token is stored in local storage
+    const token = localStorage.getItem("token");
     try {
       const response = await axios.post(
         "http://localhost:5000/predict/record",
@@ -51,7 +72,7 @@ function TestRecordPage() {
         },
         {
           headers: {
-            Authorization: token,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -65,20 +86,19 @@ function TestRecordPage() {
       }
     }
   };
+
   useEffect(() => {
     const handleBeforeUnload = async (event) => {
-      event.preventDefault(); // Membatalkan event default
+      event.preventDefault();
       const token = localStorage.getItem("token");
       const authType = localStorage.getItem("authType");
 
       try {
         if (authType === "google") {
-          // Logout dari Google
           const auth2 = window.gapi.auth2.getAuthInstance();
           await auth2.signOut();
         }
 
-        // Mengirim permintaan logout ke backend
         await axios.post(
           "http://localhost:3000/user/logout",
           {},
@@ -102,6 +122,14 @@ function TestRecordPage() {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!isAuthenticated) {
+    return <div>Not authenticated</div>;
+  }
   
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('./src/img/bg10.jpg')" }}>

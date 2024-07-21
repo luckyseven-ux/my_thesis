@@ -1,0 +1,18 @@
+Bab 3: Perancangan Sistem
+
+3.1 Analisis Kebutuhan
+3.2 Desain Arsitektur Sistem
+3.3 Desain Basis Data
+3.4 Desain Antarmuka Pengguna
+3.5 Sequence Diagram
+3.5.1 Sequence Diagram untuk Proses Login
+3.5.2 Sequence Diagram untuk Proses Prediksi
+3.5.3 Sequence Diagram untuk Proses Penyimpanan Hasil Prediksi
+3.5.4 Sequence Diagram untuk Proses Melihat Riwayat Prediksi
+
+4.1 Implementasi Sistem
+4.2 Pengujian Sistem
+4.2.1 Whitebox Testing
+4.2.2 Blackbox Testing
+4.2.3 Pengujian Kinerja
+4.2.4 Pengujian Keamanan

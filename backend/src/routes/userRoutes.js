@@ -8,6 +8,9 @@ router.get('/predictions', authenticateJWT, listUsers);
 router.post('/register', register);
 router.post('/login', login);
 router.post('/logout', authenticateJWT, logout)
+router.get('/user/check-token', authenticateJWT, (req, res) => {
+    res.sendStatus(200); // Token is valid
+  });
 router.post('/forgot-password', forgotPassword);
 router.post('/reset-password/:token', resetPassword);
 router.post('/feedback',authenticateJWT, Feedback);

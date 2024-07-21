@@ -1,17 +1,42 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { GithubLogo, EnvelopeSimple, WhatsappLogo } from "phosphor-react";
 
 const DashboardPage = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/login");
+      navigate("/login"); // Redirect to login page if not authenticated
+    } else {
+      // Verify token with the backend
+      axios.get("http://localhost:3000/user/check-token", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(response => {
+        if (response.status === 200) {
+          setIsAuthenticated(true);
+        } else {
+          navigate("/login");
+        }
+      })
+      .catch(error => {
+        navigate("/login");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
     }
   }, [navigate]);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
 
   useEffect(() => {
     const handleBeforeUnload = async (event) => {
@@ -80,7 +105,12 @@ const DashboardPage = () => {
   useEffect(() => {
     const checkTokenExpiration = async () => {
       const token = localStorage.getItem("token");
-
+  
+      if (!token) {
+        handleLogout();
+        return;
+      }
+  
       try {
         const response = await axios.get(
           "http://localhost:3000/user/check-token",
@@ -90,7 +120,7 @@ const DashboardPage = () => {
             },
           }
         );
-
+  
         if (response.status !== 200) {
           handleLogout();
         }
@@ -98,12 +128,12 @@ const DashboardPage = () => {
         handleLogout();
       }
     };
-
-    const interval = setInterval(checkTokenExpiration, 60000);
-
+  
+    const interval = setInterval(checkTokenExpiration, 3600000);
+  
     return () => clearInterval(interval);
   }, [navigate]);
-
+ 
   return (
     <div className="bg-cover bg-center bg-no-repeat min-h-screen flex flex-col items-center justify-center  p-4" style={{ backgroundImage: "url('./src/img/bg8.jpg')" }}>
        <nav className="w-full bg-green-600 p-4 flex justify-between items-center shadow-lg">

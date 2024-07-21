@@ -6,14 +6,38 @@ const RecipePage = () => {
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/login");
+      navigate("/login"); // Redirect to login page if not authenticated
+    } else {
+      // Verify token with the backend
+      axios.get("http://localhost:3000/user/check-token", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(response => {
+        if (response.status === 200) {
+          setIsAuthenticated(true);
+        } else {
+          navigate("/login");
+        }
+      })
+      .catch(error => {
+        navigate("/login");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
     }
   }, [navigate]);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
 
   const translateText = async (text, sourceLang = 'en', targetLang = 'id') => {
     const translateOptions = {

@@ -6,13 +6,38 @@ const UserDataPage = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/login");
+      navigate("/login"); // Redirect to login page if not authenticated
+    } else {
+      // Verify token with the backend
+      axios.get("http://localhost:3000/user/check-token", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(response => {
+        if (response.status === 200) {
+          setIsAuthenticated(true);
+        } else {
+          navigate("/login");
+        }
+      })
+      .catch(error => {
+        navigate("/login");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
     }
   }, [navigate]);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
 
   useEffect(() => {
     const fetchUserData = async () => {
