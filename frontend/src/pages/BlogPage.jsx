@@ -7,6 +7,7 @@ const RecipePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true)
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
