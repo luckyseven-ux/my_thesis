@@ -44,17 +44,39 @@ def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
         token = request.headers.get('Authorization')
+        logging.info(f"Received token: {token}")
         if not token:
-            return jsonify({'message': 'Token is missing!'}), 401
+            return jsonify({'message': 'Token is missing!'}), 403
         try:
+            # Hapus "Bearer " dari token
+            token = token.split(" ")[1] #jangan lupa untuk mensplit token
             data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
+            logging.info(f"Decoded token data: {data}")
             request.user_id = data['id']
-        except jwt.ExpiredSignatureError:
-            return jsonify({'message': 'Token has expired!'}), 401
-        except jwt.InvalidTokenError:
+        except jwt.ExpiredSignatureError as e:
+            logging.error(f"Token has expired: {str(e)}")
+            return jsonify({'message': 'Token has expired!'}), 402
+        except jwt.InvalidTokenError as e:
+            logging.error(f"Token is invalid: {str(e)}")
             return jsonify({'message': 'Token is invalid!'}), 401
+
         return f(*args, **kwargs)
     return decorated
+@app.route('/token', methods=['POST'])
+def receive_token():
+    data = request.get_json()
+    token = data.get('token')
+    if not token:
+        return jsonify({'message': 'Token is missing!'}), 400
+    
+    try:
+        # Verifikasi token jika diperlukan
+        decoded_token = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
+        user_id = decoded_token['id']  # Dapatkan user_id dari token
+        return jsonify({'message': 'Token received successfully!', 'user_id': user_id}), 200
+    except jwt.InvalidTokenError:
+        return jsonify({'message': 'Invalid token!'}), 400
+
 
 @app.route('/predict/record', methods=['POST'])
 @token_required

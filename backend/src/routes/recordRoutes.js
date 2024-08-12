@@ -7,4 +7,4 @@ const router=express.Router()
 
 router.post('/record',authenticateJWT,addRecord)
 
-export default router
+export default router   

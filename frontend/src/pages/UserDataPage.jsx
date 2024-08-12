@@ -12,33 +12,12 @@ const UserDataPage = () => {
     const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login"); // Redirect to login page if not authenticated
-    } else {
-      // Verify token with the backend
-      axios.get("http://localhost:3000/user/check-token", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(response => {
-        if (response.status === 200) {
-          setIsAuthenticated(true);
-        } else {
-          navigate("/login");
-        }
-      })
-      .catch(error => {
-        navigate("/login");
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-    }
+    } setIsLoading(false); // Pastikan ini selalu dipanggil
+    console.log("Token:", token); // Tambahkan ini untuk melihat nilai token di konsol
   }, [navigate]);
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
 
-
+  
+  
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -56,18 +35,21 @@ const UserDataPage = () => {
         setError('Failed to fetch user data');
       }
     };
-
+    
     fetchUserData();
   }, []);
-
+  
   if (error) {
     return <div>{error}</div>;
   }
-
+  
   if (!userData) {
     return <div>Loading...</div>;
   }
-
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  
   return (
     <div className="bg-cover bg-center bg-no-repeat min-h-screen flex flex-col items-center justify-center  p-4" style={{ backgroundImage: "url('./src/img/bg2.jpg')" }}>
       <div className="bg-green-300 p-8 rounded-lg shadow-lg w-full max-w-md">

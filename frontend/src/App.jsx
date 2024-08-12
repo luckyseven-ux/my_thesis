@@ -8,7 +8,6 @@ import DashboardPage from './pages/DashboardPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import GoogleLoginPage from './test/GoogleLoginPage';
-
 import HistoryLoginPage from './pages/HistoryLoginPage';
 import HistoryRecordPage from './pages/HistoryRecordPage';
 import UserDataPage from './pages/UserDataPage';
@@ -16,10 +15,12 @@ import TestRecordPage from './pages/TestRecordPage';
 import FeedbackPage from './pages/FeedbackPage';
 import AboutPage from './pages/aboutPage';
 import BlogPage from './pages/BlogPage';
-
+import { ThemeProvider } from './global/ThemeContext';
 function App() {
   
   return (
+    <ThemeProvider>
+      
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -29,7 +30,6 @@ function App() {
         <Route path="/forgot" element={<ForgotPasswordPage />} />
         <Route path="/reset/:token" element={<ResetPasswordPage />} />
         <Route path="/auth" element={<GoogleLoginPage />} />
-
         <Route path="/history-login" element={<HistoryLoginPage />} />
         <Route path="/history-record" element={<HistoryRecordPage />} />
         <Route path="/datauser" element={<UserDataPage />} />
@@ -40,6 +40,7 @@ function App() {
         
       </Routes>
     </Router>
+    </ThemeProvider>
   );
 }
 

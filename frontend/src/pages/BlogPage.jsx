@@ -13,33 +13,12 @@ const RecipePage = () => {
     const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login"); // Redirect to login page if not authenticated
-    } else {
-      // Verify token with the backend
-      axios.get("http://localhost:3000/user/check-token", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(response => {
-        if (response.status === 200) {
-          setIsAuthenticated(true);
-        } else {
-          navigate("/login");
-        }
-      })
-      .catch(error => {
-        navigate("/login");
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-    }
+    } setIsLoading(false);
+
+    
   }, [navigate]);
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-
+  
+  
   const translateText = async (text, sourceLang = 'en', targetLang = 'id') => {
     const translateOptions = {
       method: 'POST',
@@ -56,7 +35,7 @@ const RecipePage = () => {
         format: 'text'
       }
     };
-
+    
     try {
       const response = await axios.request(translateOptions);
       console.log('Translation response:', response.data);
@@ -66,7 +45,7 @@ const RecipePage = () => {
       return text;
     }
   };
-
+  
   useEffect(() => {
     const fetchRecipe = async () => {
       const options = {
@@ -81,16 +60,16 @@ const RecipePage = () => {
           'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
         }
       };
-
+      
       try {
         const response = await axios.request(options);
         console.log('Response from spoonacular:', response.data);
         const recipeData = response.data.recipes[0];
-
+        
         // Translate title and instructions
         const translatedTitle = await translateText(recipeData.title);
         const translatedInstructions = await translateText(recipeData.instructions || "No instructions available.");
-
+        
         // Translate ingredients
         const translatedIngredients = await Promise.all(
           recipeData.extendedIngredients.map(async (ingredient) => {
@@ -98,7 +77,7 @@ const RecipePage = () => {
             return { ...ingredient, original: translatedIngredient };
           })
         );
-
+        
         setRecipe({
           ...recipeData,
           title: translatedTitle,
@@ -112,18 +91,21 @@ const RecipePage = () => {
         setLoading(false);
       }
     };
-
+    
     fetchRecipe();
   }, []);
-
+  
   if (loading) {
     return <div>Loading...</div>;
   }
-
+  
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  
   return (
     <div className="bg-cover bg-center bg-no-repeat min-h-screen flex flex-col items-center justify-center p-4" style={{ backgroundImage: "url('./src/img/bg5.jpg')" }}>
       <div className="container mx-auto p-4">
@@ -132,7 +114,7 @@ const RecipePage = () => {
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
             onClick={() => window.location.href = '/dashboard'}
-          >
+            >
             Kembali ke Dashboard
           </button>
         </div>

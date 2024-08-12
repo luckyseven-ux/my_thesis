@@ -1,5 +1,6 @@
 import React, { useEffect,useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
 function aboutPage() {
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(true)
@@ -8,67 +9,48 @@ function aboutPage() {
       const token = localStorage.getItem("token");
       if (!token) {
         navigate("/login"); // Redirect to login page if not authenticated
-      } else {
-        // Verify token with the backend
-        axios.get("http://localhost:3000/user/check-token", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then(response => {
-          if (response.status === 200) {
-            setIsAuthenticated(true);
-          } else {
-            navigate("/login");
-          }
-        })
-        .catch(error => {
-          navigate("/login");
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-      }
+      } setIsLoading(false)
+      
     }, [navigate]);
+    
+    useEffect(() => {
+      const handleBeforeUnload = async (event) => {
+        event.preventDefault(); // Membatalkan event default
+        const token = localStorage.getItem('token');
+        const authType = localStorage.getItem('authType')
+        
+        try {
+          if (authType === 'google') {
+            // Logout dari Google
+            const auth2 = window.gapi.auth2.getAuthInstance();
+            await auth2.signOut();
+          }
+          
+          // Mengirim permintaan logout ke backend
+          await axios.post('http://localhost:3000/user/logout', {}, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+          
+          localStorage.removeItem('token');
+          localStorage.removeItem('authType');
+        } catch (error) {
+          console.error('Error logging out:', error);
+        }
+      };
+      
+      window.addEventListener('beforeunload', handleBeforeUnload);
+      
+      return () => {
+        window.removeEventListener('beforeunload', handleBeforeUnload);
+      };
+    }, []);
     if (isLoading) {
       return <div>Loading...</div>;
     }
-  
-    useEffect(() => {
-        const handleBeforeUnload = async (event) => {
-          event.preventDefault(); // Membatalkan event default
-          const token = localStorage.getItem('token');
-          const authType = localStorage.getItem('authType')
-    
-          try {
-            if (authType === 'google') {
-              // Logout dari Google
-              const auth2 = window.gapi.auth2.getAuthInstance();
-              await auth2.signOut();
-            }
-    
-            // Mengirim permintaan logout ke backend
-            await axios.post('http://localhost:3000/user/logout', {}, {
-              headers: {
-                Authorization: `Bearer ${token}`
-              }
-            });
-    
-            localStorage.removeItem('token');
-            localStorage.removeItem('authType');
-          } catch (error) {
-            console.error('Error logging out:', error);
-          }
-        };
-    
-        window.addEventListener('beforeunload', handleBeforeUnload);
-    
-        return () => {
-          window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
-      }, []);
-  return (
-    <div className="min-h-screen bg-cover bg-center bg-no-repeat text-gray-900 flex flex-col items-center justify-center p-8" style={{ backgroundImage: "url('./src/img/bg2.jpg')" }}>
+    return (
+      <div className="min-h-screen bg-cover bg-center bg-no-repeat text-gray-900 flex flex-col items-center justify-center p-8" style={{ backgroundImage: "url('./src/img/bg2.jpg')" }}>
       <div className="bg-emerald-500 p-8 rounded-lg shadow-lg w-full max-w-4xl bg-opacity-90">
   <h1 className="text-4xl font-bold mb-6 text-white">Tentang Kami</h1>
   <p className="mb-4 text-white">

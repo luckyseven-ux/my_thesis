@@ -11,31 +11,10 @@ const DashboardPage = () => {
     const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login"); // Redirect to login page if not authenticated
-    } else {
-      // Verify token with the backend
-      axios.get("http://localhost:3000/user/check-token", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(response => {
-        if (response.status === 200) {
-          setIsAuthenticated(true);
-        } else {
-          navigate("/login");
-        }
-      })
-      .catch(error => {
-        navigate("/login");
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
     }
+    setIsLoading(false); // Pastikan ini selalu dipanggil
+   // Tambahkan ini untuk melihat nilai token di konsol
   }, [navigate]);
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
 
 
   useEffect(() => {
@@ -103,36 +82,22 @@ const DashboardPage = () => {
   };
 
   useEffect(() => {
-    const checkTokenExpiration = async () => {
+    const checkTokenExpiration = () => {
       const token = localStorage.getItem("token");
-  
+
       if (!token) {
-        handleLogout();
-        return;
-      }
-  
-      try {
-        const response = await axios.get(
-          "http://localhost:3000/user/check-token",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-  
-        if (response.status !== 200) {
-          handleLogout();
-        }
-      } catch (error) {
         handleLogout();
       }
     };
-  
-    const interval = setInterval(checkTokenExpiration, 3600000);
-  
+
+    const interval = setInterval(checkTokenExpiration, 3600000); // Setiap 1 jam
+
     return () => clearInterval(interval);
   }, [navigate]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
  
   return (
     <div className="bg-cover bg-center bg-no-repeat min-h-screen flex flex-col items-center justify-center  p-4" style={{ backgroundImage: "url('./src/img/bg8.jpg')" }}>

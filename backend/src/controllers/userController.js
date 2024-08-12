@@ -84,15 +84,19 @@ export const login = async (req, res) => {
     
     // Kirim token ke server Flask
     try {
-      await fetch('http://localhost:5000/token', {
+      const flaskResponse =await fetch('http://localhost:5000/token', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ token })
+        
       });
+      const flaskData = await flaskResponse.text();
+      console.log('Response from Flask:', flaskData);
     } catch (fetchError) {
       console.error('Error sending token to Flask:', fetchError);
+
       // Tambahkan logika penanganan error jika diperlukan, namun tidak mengirim respons kedua
     }
 
@@ -104,7 +108,6 @@ export const login = async (req, res) => {
     return res.status(500).json({ message: 'Database error', error: err.message });
   }
 };
-
 // Fungsi untuk logout
 export const logout = async (req, res) => {
   try {
