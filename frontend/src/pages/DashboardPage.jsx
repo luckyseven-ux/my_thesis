@@ -100,7 +100,7 @@ const DashboardPage = () => {
   }
  
   return (
-    <div className="bg-cover bg-center bg-no-repeat min-h-screen flex flex-col items-center justify-center  p-4" style={{ backgroundImage: "url('./src/img/bg8.jpg')" }}>
+    <div className="bg-cover bg-center bg-no-repeat min-h-screen flex flex-col items-center justify-center  " style={{ backgroundImage: "url('./src/img/bg8.jpg')" }}>
        <nav className="w-full bg-green-600 p-4 flex justify-between items-center shadow-lg">
         <h1 className="text-3xl font-bold text-white">Dashboard</h1>
         <button
