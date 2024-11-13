@@ -1,0 +1,49 @@
+<mxfile host="app.diagrams.net" modified="2024-07-16T16:44:26.224Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="kYMvSWE-JJ4D1EX54nbd" version="24.6.5" type="device">
+  <diagram name="Page-1" id="1xbz1DaWChvglHRw0uPZ">
+    <mxGraphModel dx="954" dy="638" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="9VX4-rDaL10HPDoGBuwb-17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="9VX4-rDaL10HPDoGBuwb-1" target="9VX4-rDaL10HPDoGBuwb-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9VX4-rDaL10HPDoGBuwb-1" value="Evaluasi Model" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="90" y="280" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="9VX4-rDaL10HPDoGBuwb-16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="9VX4-rDaL10HPDoGBuwb-2" target="9VX4-rDaL10HPDoGBuwb-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9VX4-rDaL10HPDoGBuwb-2" value="Pengujian Model" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="90" y="180" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="9VX4-rDaL10HPDoGBuwb-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="9VX4-rDaL10HPDoGBuwb-3" target="9VX4-rDaL10HPDoGBuwb-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9VX4-rDaL10HPDoGBuwb-3" value="Membangun Model" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="90" y="70" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="9VX4-rDaL10HPDoGBuwb-19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="9VX4-rDaL10HPDoGBuwb-4" target="9VX4-rDaL10HPDoGBuwb-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9VX4-rDaL10HPDoGBuwb-4" value="Pembuatan D&lt;span style=&quot;background-color: initial;&quot;&gt;atabase&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="260" y="70" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="9VX4-rDaL10HPDoGBuwb-13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fillColor=#dae8fc;strokeColor=#030405;" edge="1" parent="1" source="9VX4-rDaL10HPDoGBuwb-5" target="9VX4-rDaL10HPDoGBuwb-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9VX4-rDaL10HPDoGBuwb-5" value="Pembuatan Backend Server" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="260" y="180" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="9VX4-rDaL10HPDoGBuwb-18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="9VX4-rDaL10HPDoGBuwb-6" target="9VX4-rDaL10HPDoGBuwb-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9VX4-rDaL10HPDoGBuwb-6" value="Pembuatan Frontend dan UI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="260" y="280" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="9VX4-rDaL10HPDoGBuwb-7" value="Evaluasi Aplikasi Web" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="430" y="70" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

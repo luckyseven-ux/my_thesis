@@ -1,0 +1,1 @@
+keterangan sqlinject :semua parameter yang diuji tampaknya tidak dapat disuntikkan. dan disini saya sudah mengujinya ketingkat yang paling tinggi risk dan level = 3 dan menggunakan tammper dan random agent
