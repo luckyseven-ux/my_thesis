@@ -37,7 +37,7 @@ class Record(db.Model):
     outcome = db.Column(db.Float, nullable=False)
 
 # Load the model
-model = load_model('E:\\syntax code\\python\\jupytr\\website html\\latihan fullstack\\react js\\skripsi\\backend\\model\\diabetes-main\\diabetes_ANN.h5')
+model = load_model('E:\\syntax code\\python\\jupytr\\website html\\latihan fullstack\\react js\\skripsi\\backend\\model\\diabetes-main\\apa.h5')
 
 # Function to generate token
 def token_required(f):
@@ -100,6 +100,10 @@ def predict_record():
         
 
         logging.info(f"Input data for prediction: {input_data}")
+        if not (0 < int(data['age']) <= 120):
+            return jsonify({'error': 'age must be between 1 and 120'}), 422
+
+
 
         prediction = model.predict(input_data)
         logging.info(f"Model prediction raw output: {prediction}")

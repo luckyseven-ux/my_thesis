@@ -55,6 +55,13 @@ function TestRecordPage() {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    if (!values.age || values.age < 1 || values.age > 8) {
+      setErrors({ ...errors, age: "Please select a valid age range (1–8)." });
+      return;
+    }
+  
+    // Proses pengiriman data jika validasi lolos
     const token = localStorage.getItem("token");
     try {
       const response = await axios.post(
@@ -68,7 +75,7 @@ function TestRecordPage() {
           insulin: parseInt(values.insulin, 10),
           bmi: parseFloat(values.bmi),
           diabetes_pedigree_function: parseFloat(values.diabetes_pedigree_function),
-          age: parseInt(values.age, 10)
+          age: parseInt(values.age, 10),
         },
         {
           headers: {
@@ -86,7 +93,7 @@ function TestRecordPage() {
       }
     }
   };
-
+  
   useEffect(() => {
     const handleBeforeUnload = async (event) => {
       event.preventDefault();
@@ -227,15 +234,21 @@ function TestRecordPage() {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="age" className="block text-green-900 font-bold mb-2">Age</label>
-            <input
-              id="age"
-              type="number"
-              name="age"
-              value={values.age}
-              onChange={handleInput}
-              className="w-full px-3 py-2 text-green-900 border border-green-500 rounded-lg focus:outline-none focus:border-green-700"
-              />
+          <select
+  name="age"
+  value={values.age}
+  onChange={handleInput}
+>
+  <option value="">Select Age Range</option>
+  <option value="1">≤ 25</option>
+  <option value="2">26–30</option>
+  <option value="3">31–35</option>
+  <option value="4">36–40</option>
+  <option value="5">41–45</option>
+  <option value="6">46–50</option>
+  <option value="7">51–60</option>
+  <option value="8"> 60</option>
+</select>
           </div>
             {message && <p className="text-green-900 mb-4 justify-center flex flex-col">{message}</p>}
             {Object.keys(errors).map((key) => (

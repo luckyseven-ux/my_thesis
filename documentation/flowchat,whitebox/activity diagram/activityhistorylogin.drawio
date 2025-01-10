@@ -1,0 +1,73 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" version="24.8.6">
+  <diagram id="z13C3koxk65QBiKDtEcK" name="Halaman-1">
+    <mxGraphModel dx="1194" dy="638" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="g3qyhrG81aiVRIwMgwjY-1" value="User" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="60" y="30" width="200" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="g3qyhrG81aiVRIwMgwjY-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="g3qyhrG81aiVRIwMgwjY-1" source="g3qyhrG81aiVRIwMgwjY-4" target="g3qyhrG81aiVRIwMgwjY-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="g3qyhrG81aiVRIwMgwjY-4" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;color=black;" parent="g3qyhrG81aiVRIwMgwjY-1" vertex="1">
+          <mxGeometry x="90" y="55" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="g3qyhrG81aiVRIwMgwjY-5" value="Mengklik tombol History Login" style="rounded=1;whiteSpace=wrap;html=1;" parent="g3qyhrG81aiVRIwMgwjY-1" vertex="1">
+          <mxGeometry x="40" y="105" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="g3qyhrG81aiVRIwMgwjY-6" value="Mulai" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="g3qyhrG81aiVRIwMgwjY-1" vertex="1">
+          <mxGeometry x="75" y="30" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="g3qyhrG81aiVRIwMgwjY-2" value="Sistem" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="260" y="30" width="290" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="g3qyhrG81aiVRIwMgwjY-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="g3qyhrG81aiVRIwMgwjY-2" source="g3qyhrG81aiVRIwMgwjY-8" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="350" y="165" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="g3qyhrG81aiVRIwMgwjY-8" value="meminta data Login milik User" style="rounded=1;whiteSpace=wrap;html=1;" parent="g3qyhrG81aiVRIwMgwjY-2" vertex="1">
+          <mxGeometry x="72.5" y="150" width="145" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="g3qyhrG81aiVRIwMgwjY-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="g3qyhrG81aiVRIwMgwjY-2" source="g3qyhrG81aiVRIwMgwjY-14" target="g3qyhrG81aiVRIwMgwjY-16" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="g3qyhrG81aiVRIwMgwjY-14" value="Menampilkan data Login dan laman History Login" style="rounded=1;whiteSpace=wrap;html=1;" parent="g3qyhrG81aiVRIwMgwjY-2" vertex="1">
+          <mxGeometry x="72.5" y="230" width="145" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="g3qyhrG81aiVRIwMgwjY-16" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;color=black;" parent="g3qyhrG81aiVRIwMgwjY-2" vertex="1">
+          <mxGeometry x="130" y="290" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="g3qyhrG81aiVRIwMgwjY-17" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;color=black;" parent="g3qyhrG81aiVRIwMgwjY-2" vertex="1">
+          <mxGeometry x="135" y="295" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="g3qyhrG81aiVRIwMgwjY-20" value="selesai" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="g3qyhrG81aiVRIwMgwjY-2" vertex="1">
+          <mxGeometry x="115" y="320" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="g3qyhrG81aiVRIwMgwjY-3" value="Server" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="550" y="30" width="290" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="g3qyhrG81aiVRIwMgwjY-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="g3qyhrG81aiVRIwMgwjY-3" source="g3qyhrG81aiVRIwMgwjY-11" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="132.5" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="g3qyhrG81aiVRIwMgwjY-11" value="mengambil data user" style="rounded=1;whiteSpace=wrap;html=1;" parent="g3qyhrG81aiVRIwMgwjY-3" vertex="1">
+          <mxGeometry x="60" y="150" width="145" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="g3qyhrG81aiVRIwMgwjY-13" value="mengirm data Login" style="rounded=1;whiteSpace=wrap;html=1;" parent="g3qyhrG81aiVRIwMgwjY-3" vertex="1">
+          <mxGeometry x="60" y="230" width="145" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="g3qyhrG81aiVRIwMgwjY-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="g3qyhrG81aiVRIwMgwjY-5" target="g3qyhrG81aiVRIwMgwjY-8" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="320" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="g3qyhrG81aiVRIwMgwjY-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="g3qyhrG81aiVRIwMgwjY-13" target="g3qyhrG81aiVRIwMgwjY-14" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,6 +1,18 @@
 version: '3.8'
 
 services:
+  db:
+    build: ./src/database
+    image: mysql:8.0
+    container_name: my-mysql-container-new
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'  # Mengizinkan password kosong
+      MYSQL_DATABASE: percobaan         # Nama database yang akan dibuat
+    volumes:
+      - db_data:/var/lib/mysql
+
   backend:
     build: .
     container_name: backend-app
@@ -9,22 +21,12 @@ services:
     environment:
       - DB_HOST=db              # Ini harus sesuai dengan nama layanan MySQL
       - DB_USER=root
-      - DB_PASSWORD=             # Kosongkan jika tidak ada password
-      - DB_NAME=my_database
+      - DB_PASSWORD= ""            # Kosongkan jika tidak ada password
+      - DB_NAME=percobaan
       - DB_PORT=3306
     depends_on:
       - db                       # Menunjukkan bahwa backend tergantung pada db
-
-  db:
-    image: mysql:8.0
-    container_name: my-mysql-container-new
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'  # Mengizinkan password kosong
-      MYSQL_DATABASE: my_database         # Nama database yang akan dibuat
-    volumes:
-      - db_data:/var/lib/mysql
+    command: ["./wait-for-it.sh", "db:3306", "--", "npm", "start"]
 
 volumes:
   db_data:
